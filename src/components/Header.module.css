@@ -1,0 +1,168 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 42, 0.75);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: 72px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #f8fafc;
+}
+
+.logoMark {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.logoAccent {
+  color: var(--color-primary);
+}
+
+.nav {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.navLink {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  transition: color 0.18s ease;
+}
+
+.navLink:hover {
+  color: var(--color-text);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ctaDesktop {
+  display: none;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.9rem;
+}
+
+.menuToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+  position: relative;
+}
+
+.burgerLine,
+.burgerLine::before,
+.burgerLine::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.2s ease, opacity 0.2s ease, top 0.2s ease;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.burgerLine {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.burgerLine::before {
+  top: -6px;
+}
+
+.burgerLine::after {
+  top: 6px;
+}
+
+.burgerOpen {
+  background: transparent;
+}
+
+.burgerOpen::before {
+  top: 0;
+  transform: rotate(45deg) translateX(-50%);
+  left: 50%;
+}
+
+.burgerOpen::after {
+  top: 0;
+  transform: rotate(-45deg) translateX(-50%);
+  left: 50%;
+}
+
+.mobileNav {
+  max-height: 0;
+  overflow: hidden;
+  border-bottom: 1px solid transparent;
+  background: var(--color-bg-raised);
+  transition: max-height 0.25s ease;
+}
+
+.mobileNav nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 1rem;
+}
+
+.mobileNavOpen {
+  max-height: 320px;
+  border-bottom-color: var(--color-border);
+}
+
+.mobileNavLink {
+  padding: 0.85rem 0.25rem;
+  font-size: 1rem;
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobileCta {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 860px) {
+  .nav {
+    display: flex;
+  }
+
+  .ctaDesktop {
+    display: inline-flex;
+  }
+
+  .menuToggle {
+    display: none;
+  }
+
+  .mobileNav {
+    display: none;
+  }
+}

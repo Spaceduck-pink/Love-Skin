@@ -1,0 +1,155 @@
+.wrapper {
+  padding-block: 1rem 3rem;
+}
+
+.headline {
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  margin-top: 0.5rem;
+  text-transform: capitalize;
+}
+
+.headline:focus-visible {
+  outline: none;
+}
+
+.summary {
+  max-width: 65ch;
+  margin-top: 1rem;
+  font-size: 1.02rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.tag {
+  font-family: var(--font-mono-family);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  color: var(--color-secondary);
+  background: var(--color-bg-raised);
+}
+
+.routineGrid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.routineCard {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.routineHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.routineIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1rem;
+  background: rgba(129, 140, 248, 0.15);
+  color: var(--color-primary);
+}
+
+.routineIcon[data-variant="pm"] {
+  background: rgba(52, 211, 153, 0.15);
+  color: var(--color-secondary);
+}
+
+.stepList {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.step {
+  display: flex;
+  gap: 0.9rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stepIndex {
+  flex-shrink: 0;
+  font-family: var(--font-mono-family);
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  padding-top: 0.15rem;
+}
+
+.stepTitle {
+  color: #f8fafc;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+.stepDescription {
+  font-size: 0.9rem;
+}
+
+.tipsCard {
+  margin-top: 1.5rem;
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  border-left: 2px solid var(--color-accent);
+  background: linear-gradient(90deg, rgba(244, 114, 182, 0.08), transparent);
+}
+
+.tipsHeading {
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+}
+
+.tipsList {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.tipsList li {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.tipsList li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+.actions {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 800px) {
+  .routineGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
