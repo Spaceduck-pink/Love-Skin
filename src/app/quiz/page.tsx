@@ -71,7 +71,7 @@ export default function QuizPage() {
 
   return (
     <div className={`container ${styles.page}`}>
-      <div className={styles.card}>
+      <div className={styles.card} key={stepIndex}>
         <ProgressBar current={stepIndex + 1} total={TOTAL_STEPS} />
 
         <QuestionStep

@@ -3,6 +3,8 @@
   --color-primary-dim: #6366f1;
   --color-secondary: #34d399;
   --color-accent: #f472b6;
+  --color-brand: #ef73b8;
+  --color-brand-dim: #e0529f;
   --color-bg: #0f172a;
   --color-bg-raised: #161e35;
   --color-bg-raised-2: #1c2540;
@@ -177,14 +179,14 @@ input:focus-visible,
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dim));
+  background: linear-gradient(135deg, var(--color-brand), var(--color-brand-dim));
   color: #0b1220;
-  box-shadow: 0 12px 30px -12px rgba(129, 140, 248, 0.65);
+  box-shadow: 0 12px 30px -12px rgba(239, 115, 184, 0.65);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px -12px rgba(129, 140, 248, 0.8);
+  box-shadow: 0 16px 36px -12px rgba(239, 115, 184, 0.8);
 }
 
 .btn-ghost {

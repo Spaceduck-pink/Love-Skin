@@ -13,6 +13,16 @@
   border-radius: var(--radius-lg);
   padding: 2rem 1.5rem;
   box-shadow: var(--shadow-glow);
+  animation: cardScaleIn 0.25s ease-out;
+}
+
+@keyframes cardScaleIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .nav {

@@ -36,7 +36,26 @@ export default function ResultsView({ routine, onRetake }: ResultsViewProps) {
         <section className={styles.routineCard} aria-labelledby="am-heading">
           <h2 id="am-heading" className={styles.routineHeading}>
             <span className={styles.routineIcon} data-variant="am" aria-hidden="true">
-              ☀
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="4" />
+                <line x1="12" y1="2" x2="12" y2="4" />
+                <line x1="12" y1="20" x2="12" y2="22" />
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                <line x1="2" y1="12" x2="4" y2="12" />
+                <line x1="20" y1="12" x2="22" y2="12" />
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+              </svg>
             </span>
             Morning
           </h2>
@@ -56,7 +75,9 @@ export default function ResultsView({ routine, onRetake }: ResultsViewProps) {
         <section className={styles.routineCard} aria-labelledby="pm-heading">
           <h2 id="pm-heading" className={styles.routineHeading}>
             <span className={styles.routineIcon} data-variant="pm" aria-hidden="true">
-              ☾
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 1020.354 15.354z" />
+              </svg>
             </span>
             Evening
           </h2>

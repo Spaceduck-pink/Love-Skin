@@ -64,37 +64,6 @@ export default function Home() {
               </a>
             </div>
           </div>
-
-          <div className={styles.heroVisual} aria-hidden="true">
-            <div className={styles.terminal}>
-              <div className={styles.terminalBar}>
-                <span className={styles.dot} data-color="accent" />
-                <span className={styles.dot} data-color="secondary" />
-                <span className={styles.dot} data-color="primary" />
-                <span className={styles.terminalTitle}>routine.json</span>
-              </div>
-              <pre className={styles.terminalBody}>
-{`{
-  "skinType": "combination",
-  "concern": "dullness",
-  "routine": {
-    "am": [
-      "gel cleanser",
-      "vitamin c serum",
-      "moisturizer",
-      "SPF 30+"
-    ],
-    "pm": [
-      "oil cleanser",
-      "gentle cleanser",
-      "niacinamide serum",
-      "night cream"
-    ]
-  }
-}`}
-              </pre>
-            </div>
-          </div>
         </div>
       </section>
 

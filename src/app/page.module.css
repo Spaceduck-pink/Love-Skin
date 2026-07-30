@@ -6,11 +6,15 @@
   display: grid;
   gap: 2.5rem;
   align-items: center;
+  justify-items: center;
+  text-align: center;
 }
 
 .heroCopy {
   display: grid;
   gap: 1.25rem;
+  max-width: 720px;
+  justify-items: center;
 }
 
 .heroTitle {
@@ -33,68 +37,9 @@
 .heroActions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin-top: 0.5rem;
-}
-
-.heroVisual {
-  display: flex;
-  justify-content: center;
-}
-
-.terminal {
-  width: 100%;
-  max-width: 420px;
-  background: #0b1220;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-glow);
-}
-
-.terminalBar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: var(--color-bg-raised);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--color-text-muted);
-}
-
-.dot[data-color="accent"] {
-  background: var(--color-accent);
-}
-
-.dot[data-color="secondary"] {
-  background: var(--color-secondary);
-}
-
-.dot[data-color="primary"] {
-  background: var(--color-primary);
-}
-
-.terminalTitle {
-  margin-left: 0.5rem;
-  font-family: var(--font-mono-family);
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-}
-
-.terminalBody {
-  padding: 1.25rem;
-  font-family: var(--font-mono-family);
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--color-secondary);
-  overflow-x: auto;
-  white-space: pre;
 }
 
 .section {
@@ -191,11 +136,6 @@
 }
 
 @media (min-width: 900px) {
-  .heroInner {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 3rem;
-  }
-
   .stepsGrid {
     grid-template-columns: repeat(3, 1fr);
   }
