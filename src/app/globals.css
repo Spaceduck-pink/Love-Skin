@@ -15,6 +15,7 @@
   --font-heading-family: var(--font-heading), "Segoe UI", sans-serif;
   --font-body-family: var(--font-body), "Segoe UI", sans-serif;
   --font-mono-family: var(--font-mono), "Courier New", monospace;
+  --font-lato-family: var(--font-lato), "Segoe UI", sans-serif;
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -201,7 +202,7 @@ input:focus-visible,
 }
 
 .mono-tag {
-  font-family: var(--font-mono-family);
+  font-family: var(--font-lato-family);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;

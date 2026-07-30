@@ -26,7 +26,7 @@
 }
 
 .tag {
-  font-family: var(--font-mono-family);
+  font-family: var(--font-lato-family);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
