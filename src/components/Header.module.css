@@ -153,6 +153,10 @@
   width: 100%;
 }
 
+.mobileCta:hover {
+  background: #848cf7;
+}
+
 @media (min-width: 860px) {
   .nav {
     display: flex;
