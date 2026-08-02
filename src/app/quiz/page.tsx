@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { quizQuestions } from "@/lib/quiz-data";
 import { generateRoutine } from "@/lib/generate-routine";
 import type { QuestionId, QuizAnswers } from "@/lib/types";
@@ -82,14 +83,15 @@ export default function QuizPage() {
         />
 
         <div className={styles.nav}>
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={handleBack}
-            disabled={stepIndex === 0}
-          >
-            Back
-          </button>
+          {stepIndex === 0 ? (
+            <Link href="/" className="btn btn-ghost">
+              Back
+            </Link>
+          ) : (
+            <button type="button" className="btn btn-ghost" onClick={handleBack}>
+              Back
+            </button>
+          )}
           <button
             type="button"
             className="btn btn-primary"
