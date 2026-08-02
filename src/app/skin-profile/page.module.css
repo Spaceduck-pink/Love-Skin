@@ -33,22 +33,28 @@
   font-size: clamp(1.4rem, 4vw, 1.9rem);
 }
 
-.profileGrid {
+.profileList {
   display: grid;
-  gap: 1.5rem;
 }
 
-.profileCard {
-  background: var(--color-bg-raised);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 1.75rem;
-  transition: border-color 0.2s ease, transform 0.2s ease;
+.profileRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.profileCard:hover {
-  border-color: var(--color-primary);
-  transform: translateY(-3px);
+.profileRow:first-child {
+  padding-top: 0;
+}
+
+.profileRow:last-child {
+  border-bottom: none;
+}
+
+.profileHead {
+  flex: 1;
 }
 
 .profileLabel {
@@ -58,12 +64,32 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--color-brand-dim);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .profileTitle {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.profileBody {
+  flex: 1;
+  font-size: 1.02rem;
+}
+
+@media (min-width: 700px) {
+  .profileRow {
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .profileRow:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .profileRow:nth-child(even) .profileHead {
+    text-align: right;
+  }
 }
 
 .ctaBanner {
@@ -85,14 +111,3 @@
   font-size: clamp(1.5rem, 4vw, 2.1rem);
 }
 
-@media (min-width: 640px) {
-  .profileGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 900px) {
-  .profileGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}

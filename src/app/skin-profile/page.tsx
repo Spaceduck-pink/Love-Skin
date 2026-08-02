@@ -85,12 +85,14 @@ export default function SkinProfilePage() {
             <h2>Skin types</h2>
             <p>The five skin types LoveSkin recognizes, and how each shapes your routine.</p>
           </div>
-          <ol className={styles.profileGrid}>
+          <ol className={styles.profileList}>
             {skinTypes.map((item) => (
-              <li key={item.title} className={styles.profileCard}>
-                <span className={styles.profileLabel}>{item.label}</span>
-                <h3 className={styles.profileTitle}>{item.title}</h3>
-                <p>{item.body}</p>
+              <li key={item.title} className={styles.profileRow}>
+                <div className={styles.profileHead}>
+                  <span className={styles.profileLabel}>{item.label}</span>
+                  <h3 className={styles.profileTitle}>{item.title}</h3>
+                </div>
+                <p className={styles.profileBody}>{item.body}</p>
               </li>
             ))}
           </ol>
