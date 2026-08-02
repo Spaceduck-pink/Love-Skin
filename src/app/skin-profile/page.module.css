@@ -1,0 +1,98 @@
+.hero {
+  padding-block: 3rem 2rem;
+}
+
+.heroInner {
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.section {
+  padding-block: 2rem 4rem;
+}
+
+.sectionHeading {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  max-width: 60ch;
+}
+
+.sectionHeading h2 {
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+}
+
+.profileGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.profileCard {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.profileCard:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-3px);
+}
+
+.profileLabel {
+  display: inline-block;
+  font-family: var(--font-mono-family);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+  margin-bottom: 0.75rem;
+}
+
+.profileTitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ctaBanner {
+  padding-block: 1rem 5rem;
+}
+
+.ctaInner {
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12), rgba(244, 114, 182, 0.10));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+}
+
+.ctaInner h2 {
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+}
+
+@media (min-width: 640px) {
+  .profileGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .profileGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

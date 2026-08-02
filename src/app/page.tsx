@@ -12,6 +12,7 @@ const steps = [
     number: "02",
     title: "We map your skin profile",
     body: "Your answers run through a rules-based engine that matches patterns dermatology guides use.",
+    href: "/skin-profile",
   },
   {
     number: "03",
