@@ -6,6 +6,7 @@ const steps = [
     number: "01",
     title: "Answer 5 quick questions",
     body: "Tell us about your skin type, main concern, and how your skin behaves day to day.",
+    href: "/quiz",
   },
   {
     number: "02",
@@ -74,13 +75,23 @@ export default function Home() {
             <h2>Three steps to your routine</h2>
           </div>
           <ol className={styles.stepsGrid}>
-            {steps.map((step) => (
-              <li key={step.number} className={styles.stepCard}>
-                <span className={styles.stepNumber}>{step.number}</span>
-                <h3 className={styles.stepTitle}>{step.title}</h3>
-                <p>{step.body}</p>
-              </li>
-            ))}
+            {steps.map((step) =>
+              step.href ? (
+                <li key={step.number}>
+                  <Link href={step.href} className={styles.stepCard}>
+                    <span className={styles.stepNumber}>{step.number}</span>
+                    <h3 className={styles.stepTitle}>{step.title}</h3>
+                    <p>{step.body}</p>
+                  </Link>
+                </li>
+              ) : (
+                <li key={step.number} className={styles.stepCard}>
+                  <span className={styles.stepNumber}>{step.number}</span>
+                  <h3 className={styles.stepTitle}>{step.title}</h3>
+                  <p>{step.body}</p>
+                </li>
+              )
+            )}
           </ol>
         </div>
       </section>
