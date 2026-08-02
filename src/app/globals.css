@@ -5,12 +5,12 @@
   --color-accent: #f472b6;
   --color-brand: #ef73b8;
   --color-brand-dim: #e0529f;
-  --color-bg: #0f172a;
-  --color-bg-raised: #161e35;
-  --color-bg-raised-2: #1c2540;
-  --color-border: #2a3555;
-  --color-text: #e2e8f0;
-  --color-text-muted: #94a3b8;
+  --color-bg: #f8dced;
+  --color-bg-raised: #fef8fc;
+  --color-bg-raised-2: #f3cbe4;
+  --color-border: #eab8d9;
+  --color-text: #241226;
+  --color-text-muted: #6e5a72;
 
   --font-heading-family: var(--font-heading), "Segoe UI", sans-serif;
   --font-body-family: var(--font-body), "Segoe UI", sans-serif;
@@ -24,7 +24,7 @@
   --shadow-glow: 0 0 0 1px var(--color-border), 0 20px 60px -20px rgba(129, 140, 248, 0.35);
   --container-width: 1160px;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -58,8 +58,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image:
-    radial-gradient(60vw 40vh at 85% -10%, rgba(129, 140, 248, 0.16), transparent 60%),
-    radial-gradient(50vw 35vh at 0% 15%, rgba(52, 211, 153, 0.10), transparent 60%);
+    radial-gradient(60vw 40vh at 85% -10%, rgba(129, 140, 248, 0.14), transparent 60%),
+    radial-gradient(50vw 35vh at 0% 15%, rgba(244, 114, 182, 0.14), transparent 60%);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -78,7 +78,7 @@ h4 {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: #f8fafc;
+  color: #241226;
 }
 
 p {
