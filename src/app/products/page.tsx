@@ -68,12 +68,14 @@ export default function ProductsPage() {
 
       <section className={styles.section}>
         <div className="container">
-          <ol className={styles.productGrid}>
+          <ol className={styles.productList}>
             {productTypes.map((product) => (
-              <li key={product.step} className={styles.productCard}>
-                <span className={styles.productStep}>{product.step}</span>
-                <h3 className={styles.productTitle}>{product.title}</h3>
-                <p>{product.body}</p>
+              <li key={product.step} className={styles.productRow}>
+                <div className={styles.productHead}>
+                  <span className={styles.productStep}>{product.step}</span>
+                  <h3 className={styles.productTitle}>{product.title}</h3>
+                </div>
+                <p className={styles.productBody}>{product.body}</p>
               </li>
             ))}
           </ol>
