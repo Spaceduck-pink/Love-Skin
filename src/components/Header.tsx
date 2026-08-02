@@ -6,6 +6,7 @@ import styles from "./Header.module.css";
 
 const navLinks = [
   { href: "/#how-it-works", label: "How it works" },
+  { href: "/products", label: "Products" },
   { href: "/#about", label: "About" },
 ];
 
