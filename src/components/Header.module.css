@@ -63,6 +63,10 @@
   font-size: 0.9rem;
 }
 
+.ctaDesktop:hover {
+  background: #848cf7;
+}
+
 .menuToggle {
   display: inline-flex;
   align-items: center;

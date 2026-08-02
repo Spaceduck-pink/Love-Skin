@@ -57,7 +57,7 @@ export default function Home() {
               account, no data collection, no fuss.
             </p>
             <div className={styles.heroActions}>
-              <Link href="/quiz" className="btn btn-primary">
+              <Link href="/quiz" className={`btn btn-primary ${styles.heroCta}`}>
                 Start the Quiz
               </Link>
               <a href="#how-it-works" className="btn btn-ghost">

@@ -42,6 +42,10 @@
   margin-top: 0.5rem;
 }
 
+.heroCta:hover {
+  background: #848cf7;
+}
+
 .section {
   padding-block: 4rem;
 }
