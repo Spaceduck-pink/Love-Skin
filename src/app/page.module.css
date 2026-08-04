@@ -111,7 +111,7 @@ a.stepCard:hover {
 }
 
 a.stepCard:hover .stepTitle {
-  color: var(--color-brand);
+  color: #cd98d8;
 }
 
 .stepNumber {
