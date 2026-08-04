@@ -46,11 +46,11 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroCopy}>
-            <span className="mono-tag">no sign-up · no database · just your routine</span>
+            <span className="mono-tag">No sign-up · No database · Just your routine</span>
             <h1 className={styles.heroTitle}>
-              Your skin routine,
+              Skincare,
               <br />
-              <span className={styles.heroTitleAccent}>generated in 60 seconds.</span>
+              understood for you.
             </h1>
             <p className={styles.heroSubtitle}>
               LoveSkin asks a few smart questions about your skin, then builds a
@@ -58,12 +58,40 @@ export default function Home() {
               account, no data collection, no fuss.
             </p>
             <div className={styles.heroActions}>
-              <Link href="/quiz" className={`btn btn-primary ${styles.heroCta}`}>
+              <Link href="/quiz" className="btn btn-primary">
                 Start the Quiz
               </Link>
               <a href="#how-it-works" className="btn btn-ghost">
                 See how it works
               </a>
+            </div>
+          </div>
+
+          <div className={styles.heroVisual} aria-hidden="true">
+            <div className={styles.heroPanel}>
+              <svg
+                className={styles.heroSprig}
+                viewBox="0 0 120 200"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M60 190V40" stroke="currentColor" strokeWidth="1.5" />
+                <path
+                  d="M60 100C60 100 40 90 38 68C36 46 52 30 52 30"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M60 130C60 130 82 122 86 98C90 74 72 56 72 56"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <circle cx="60" cy="34" r="7" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+            </div>
+            <div className={styles.heroCaption}>
+              <span>AM / PM</span>
+              <span>Routine, generated</span>
             </div>
           </div>
         </div>
@@ -72,21 +100,22 @@ export default function Home() {
       <section id="how-it-works" className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
-            <span className="mono-tag">how it works</span>
+            <span className="mono-tag">How it works</span>
             <h2>Three steps to your routine</h2>
           </div>
           <ol className={styles.stepsGrid}>
             {steps.map((step) =>
               step.href ? (
-                <li key={step.number}>
+                <li key={step.number} className={styles.stepItem}>
                   <Link href={step.href} className={styles.stepCard}>
                     <span className={styles.stepNumber}>{step.number}</span>
                     <h3 className={styles.stepTitle}>{step.title}</h3>
                     <p>{step.body}</p>
+                    <span className={styles.stepLink}>Learn more</span>
                   </Link>
                 </li>
               ) : (
-                <li key={step.number} className={styles.stepCard}>
+                <li key={step.number} className={`${styles.stepItem} ${styles.stepCard}`}>
                   <span className={styles.stepNumber}>{step.number}</span>
                   <h3 className={styles.stepTitle}>{step.title}</h3>
                   <p>{step.body}</p>
@@ -100,7 +129,7 @@ export default function Home() {
       <section id="about" className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
-            <span className="mono-tag">why loveskin</span>
+            <span className="mono-tag">Why LoveSkin</span>
             <h2>Built simple, on purpose</h2>
           </div>
           <ul className={styles.featureGrid}>

@@ -84,11 +84,15 @@ export default function QuizPage() {
 
         <div className={styles.nav}>
           {stepIndex === 0 ? (
-            <Link href="/" className="btn btn-ghost">
+            <Link href="/" className={`btn btn-ghost ${styles.backBtn}`}>
               Back
             </Link>
           ) : (
-            <button type="button" className="btn btn-ghost" onClick={handleBack}>
+            <button
+              type="button"
+              className={`btn btn-ghost ${styles.backBtn}`}
+              onClick={handleBack}
+            >
               Back
             </button>
           )}

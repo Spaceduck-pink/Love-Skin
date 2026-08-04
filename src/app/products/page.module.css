@@ -48,14 +48,15 @@
 
 .productStep {
   display: inline-block;
-  font-family: var(--font-mono-family);
-  font-size: 0.85rem;
-  color: #878af4;
+  font-family: var(--font-heading-family);
+  font-size: 1rem;
+  color: var(--color-brand-dim);
   margin-bottom: 0.5rem;
 }
 
 .productTitle {
   font-size: 1.3rem;
+  text-transform: uppercase;
 }
 
 .productBody {
@@ -88,22 +89,12 @@
   display: grid;
   gap: 1rem;
   justify-items: center;
-  background: linear-gradient(135deg, rgba(129, 140, 248, 0.12), rgba(244, 114, 182, 0.10));
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 3rem 1.5rem;
+  padding: 3.5rem 1.5rem;
 }
 
 .ctaInner h2 {
-  font-size: clamp(1.5rem, 4vw, 2.1rem);
-}
-
-.ctaInner :global(.btn-primary) {
-  background: #848cf7;
-  box-shadow: 0 12px 30px -12px rgba(132, 140, 247, 0.65);
-}
-
-.ctaInner :global(.btn-primary):hover {
-  box-shadow: 0 16px 36px -12px rgba(132, 140, 247, 0.8);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
 }
 

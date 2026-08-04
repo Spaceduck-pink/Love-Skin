@@ -17,23 +17,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={`container ${styles.bar}`}>
         <Link href="/" className={styles.logo} onClick={() => setMenuOpen(false)}>
-          <span className={styles.logoMark} aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.2 4 6.1 4c2.1 0 3.6 1.1 4.4 2.4l1.5 2.3 1.5-2.3C14.3 5.1 15.8 4 17.9 4c3.9 0 5.7 4.1 4.1 7.7C19.5 16.4 12 21 12 21Z"
-                fill="url(#logoGradient)"
-              />
-              <defs>
-                <linearGradient id="logoGradient" x1="0" y1="0" x2="24" y2="24">
-                  <stop offset="0%" stopColor="#818CF8" />
-                  <stop offset="100%" stopColor="#F472B6" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>
-          <span>
-            Love<span className={styles.logoAccent}>Skin</span>
-          </span>
+          Love<span className={styles.logoAccent}>Skin</span>
         </Link>
 
         <nav className={styles.nav} aria-label="Primary">

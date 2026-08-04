@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono, Lato } from "next/font/google";
+import { Playfair_Display, Inter, JetBrains_Mono, Lato } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const playfairDisplay = Playfair_Display({
   variable: "--font-heading",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
@@ -43,7 +43,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetBrainsMono.variable} ${lato.variable}`}
+      className={`${playfairDisplay.variable} ${inter.variable} ${jetBrainsMono.variable} ${lato.variable}`}
     >
       <body>
         <a href="#main-content" className="skip-link">

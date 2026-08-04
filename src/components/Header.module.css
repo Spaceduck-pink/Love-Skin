@@ -2,8 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(12px);
-  background: rgba(253, 240, 248, 0.75);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -12,23 +11,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  height: 72px;
+  height: 84px;
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
   font-family: var(--font-heading-family);
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: #241226;
-}
-
-.logoMark {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
 }
 
 .logoAccent {
@@ -38,17 +32,21 @@
 .nav {
   display: none;
   align-items: center;
-  gap: 2rem;
+  gap: 2.25rem;
 }
 
 .navLink {
-  font-size: 0.95rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--color-text-muted);
   transition: color 0.18s ease;
 }
 
 .navLink:hover {
-  color: var(--color-text);
+  color: var(--color-brand);
 }
 
 .actions {
@@ -57,14 +55,9 @@
   gap: 1rem;
 }
 
-.ctaDesktop {
+a.ctaDesktop {
   display: none;
-  padding: 0.6rem 1.4rem;
-  font-size: 0.9rem;
-}
-
-.ctaDesktop:hover {
-  background: #848cf7;
+  padding: 0.7rem 1.4rem;
 }
 
 .menuToggle {
@@ -125,7 +118,7 @@
   max-height: 0;
   overflow: hidden;
   border-bottom: 1px solid transparent;
-  background: var(--color-bg-raised);
+  background: var(--color-bg);
   transition: max-height 0.25s ease;
 }
 
@@ -143,7 +136,11 @@
 
 .mobileNavLink {
   padding: 0.85rem 0.25rem;
-  font-size: 1rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--color-text);
   border-bottom: 1px solid var(--color-border);
 }
@@ -153,16 +150,12 @@
   width: 100%;
 }
 
-.mobileCta:hover {
-  background: #848cf7;
-}
-
 @media (min-width: 860px) {
   .nav {
     display: flex;
   }
 
-  .ctaDesktop {
+  a.ctaDesktop {
     display: inline-flex;
   }
 
