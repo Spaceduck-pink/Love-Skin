@@ -198,6 +198,7 @@ a.stepCard:hover .stepTitle {
 
   .stepItem:last-child {
     border-right: none;
+    border-bottom: none;
   }
 
   .stepCard {
