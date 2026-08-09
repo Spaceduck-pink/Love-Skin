@@ -75,7 +75,7 @@ export default function Home() {
                 src="/hero-skincare.webp"
                 alt="Skincare ingredients and lab glassware arranged on a lilac surface"
                 fill
-                sizes="(min-width: 900px) 360px, 90vw"
+                sizes="(min-width: 640px) 360px, 220px"
                 className={styles.heroImage}
                 priority
               />
