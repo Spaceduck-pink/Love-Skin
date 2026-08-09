@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <FadeIn className={styles.section}>
         <div className="container">
           <ol className={styles.productList}>
             {productTypes.map((product) => (
@@ -80,9 +81,9 @@ export default function ProductsPage() {
             ))}
           </ol>
         </div>
-      </section>
+      </FadeIn>
 
-      <section className={styles.ctaBanner}>
+      <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to find your routine?</h2>
           <p>Take the quiz and we&apos;ll match these product types to your skin.</p>
@@ -90,7 +91,7 @@ export default function ProductsPage() {
             Start the Quiz
           </Link>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -79,7 +80,7 @@ export default function SkinProfilePage() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <FadeIn className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
             <h2>Skin types</h2>
@@ -97,9 +98,9 @@ export default function SkinProfilePage() {
             ))}
           </ol>
         </div>
-      </section>
+      </FadeIn>
 
-      <section className={styles.section}>
+      <FadeIn className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
             <h2>Skin concerns</h2>
@@ -117,9 +118,9 @@ export default function SkinProfilePage() {
             ))}
           </ol>
         </div>
-      </section>
+      </FadeIn>
 
-      <section className={styles.ctaBanner}>
+      <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to find your profile?</h2>
           <p>Take the quiz and we&apos;ll match your skin type and concern for you.</p>
@@ -127,7 +128,7 @@ export default function SkinProfilePage() {
             Start the Quiz
           </Link>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }

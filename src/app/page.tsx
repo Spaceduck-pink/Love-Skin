@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import FadeIn from "@/components/FadeIn";
 import styles from "./page.module.css";
 
 const steps = [
@@ -87,7 +88,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="how-it-works" className={styles.section}>
+      <FadeIn id="how-it-works" className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
             <span className="mono-tag">How it works</span>
@@ -114,9 +115,9 @@ export default function Home() {
             )}
           </ol>
         </div>
-      </section>
+      </FadeIn>
 
-      <section id="about" className={styles.section}>
+      <FadeIn id="about" className={styles.section}>
         <div className="container">
           <div className={styles.sectionHeading}>
             <span className="mono-tag">Why LoveSkin</span>
@@ -131,9 +132,9 @@ export default function Home() {
             ))}
           </ul>
         </div>
-      </section>
+      </FadeIn>
 
-      <section className={styles.ctaBanner}>
+      <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to meet your skin?</h2>
           <p>It takes less than a minute and there&apos;s nothing to sign up for.</p>
@@ -141,7 +142,7 @@ export default function Home() {
             Start the Quiz
           </Link>
         </div>
-      </section>
+      </FadeIn>
     </>
   );
 }
