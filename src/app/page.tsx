@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./page.module.css";
 
@@ -67,29 +68,18 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={styles.heroVisual} aria-hidden="true">
+          <div className={styles.heroVisual}>
             <div className={styles.heroPanel}>
-              <svg
-                className={styles.heroSprig}
-                viewBox="0 0 120 200"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M60 190V40" stroke="currentColor" strokeWidth="1.5" />
-                <path
-                  d="M60 100C60 100 40 90 38 68C36 46 52 30 52 30"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M60 130C60 130 82 122 86 98C90 74 72 56 72 56"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <circle cx="60" cy="34" r="7" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
+              <Image
+                src="/hero-skincare.webp"
+                alt="Skincare ingredients and lab glassware arranged on a lilac surface"
+                fill
+                sizes="(min-width: 900px) 360px, 90vw"
+                className={styles.heroImage}
+                priority
+              />
             </div>
-            <div className={styles.heroCaption}>
+            <div className={styles.heroCaption} aria-hidden="true">
               <span>AM / PM</span>
               <span>Routine, generated</span>
             </div>
