@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/skin-profile", label: "Skin Profile" },
   { href: "/products", label: "Products" },
   { href: "/#about", label: "About" },
+  { href: "#newsletter", label: "Newsletter" },
 ];
 
 export default function Header() {

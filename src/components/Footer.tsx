@@ -37,6 +37,9 @@ export default function Footer() {
           <Link href="/#about" className={styles.link} prefetch={false}>
             About
           </Link>
+          <Link href="#newsletter" className={styles.link} prefetch={false}>
+            Newsletter
+          </Link>
           <Link href="/quiz" className={styles.link}>
             Take the Quiz
           </Link>

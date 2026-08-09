@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono, Lato } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import NewsletterForm from "@/components/NewsletterForm";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -50,7 +51,10 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Header />
-        <main id="main-content">{children}</main>
+        <main id="main-content">
+          {children}
+          <NewsletterForm />
+        </main>
         <Footer />
       </body>
     </html>
