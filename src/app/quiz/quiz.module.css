@@ -31,6 +31,16 @@
   margin-top: 2.5rem;
 }
 
+@media (max-width: 480px) {
+  .nav {
+    flex-direction: column-reverse;
+  }
+
+  .nav > * {
+    width: 100%;
+  }
+}
+
 .backBtn::after {
   content: "\2190";
   order: -1;
