@@ -7,7 +7,7 @@
   display: grid;
   gap: 1.75rem;
   justify-items: center;
-  background: #e9d2ee;
+  background: var(--color-tint);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 3rem 1.5rem;

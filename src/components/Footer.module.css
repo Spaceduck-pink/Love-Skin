@@ -21,13 +21,14 @@
   font-size: 1.3rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #241226;
+  color: var(--color-text);
 }
 
 .brandMark {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  color: var(--color-hover-accent);
 }
 
 .brandAccent {
@@ -58,7 +59,7 @@
 }
 
 .link:hover {
-  color: #cd98d8;
+  color: var(--color-hover-accent);
 }
 
 .copyright {

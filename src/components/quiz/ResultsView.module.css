@@ -57,7 +57,7 @@
   font-size: 1.2rem;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  color: #1f1230;
+  color: var(--color-text);
 }
 
 .routineIcon {
@@ -81,7 +81,7 @@
   display: flex;
   gap: 0.9rem;
   padding-bottom: 1.1rem;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .step:last-child {
@@ -98,21 +98,21 @@
 }
 
 .stepTitle {
-  color: #1f1230;
+  color: var(--color-text);
   font-weight: 500;
   margin-bottom: 0.2rem;
 }
 
 .stepDescription {
   font-size: 0.9rem;
-  color: #6b5b73;
+  color: var(--color-text-muted);
 }
 
 .tipsCard {
   margin-top: 1.5rem;
   padding: 1.75rem;
   border-left: 2px solid var(--color-brand);
-  background: #e9d2ee;
+  background: var(--color-tint);
 }
 
 .tipsHeading {

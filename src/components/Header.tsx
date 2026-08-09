@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -22,7 +23,7 @@ export default function Header() {
           <svg
             className={styles.logoMark}
             viewBox="0 0 24 24"
-            fill="#CD98D8"
+            fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
@@ -48,6 +49,8 @@ export default function Header() {
           <Link href="/quiz" className={`btn btn-primary ${styles.ctaDesktop}`}>
             Start Quiz
           </Link>
+
+          <ThemeToggle />
 
           <button
             type="button"

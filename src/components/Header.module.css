@@ -23,13 +23,14 @@
   font-size: 1.4rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #241226;
+  color: var(--color-text);
 }
 
 .logoMark {
   width: 22px;
   height: 22px;
   flex-shrink: 0;
+  color: var(--color-hover-accent);
 }
 
 .logoAccent {
@@ -53,7 +54,7 @@
 }
 
 .navLink:hover {
-  color: #cd98d8;
+  color: var(--color-hover-accent);
 }
 
 .actions {

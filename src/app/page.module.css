@@ -113,7 +113,7 @@ a.stepCard:hover {
 }
 
 a.stepCard:hover .stepTitle {
-  color: #cd98d8;
+  color: var(--color-hover-accent);
 }
 
 .stepNumber {
@@ -156,7 +156,7 @@ a.stepCard:hover .stepTitle {
   font-size: 1.05rem;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
-  color: #241226;
+  color: var(--color-text);
 }
 
 .ctaBanner {
@@ -168,7 +168,7 @@ a.stepCard:hover .stepTitle {
   display: grid;
   gap: 1rem;
   justify-items: center;
-  background: #e9d2ee;
+  background: var(--color-tint);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 3.5rem 1.5rem;

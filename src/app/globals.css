@@ -11,6 +11,9 @@
   --color-border: #eab8d9;
   --color-text: #241226;
   --color-text-muted: #6e5a72;
+  --color-hover-accent: #cd98d8;
+  --color-tint: #e9d2ee;
+  --color-divider: rgba(36, 18, 38, 0.08);
 
   --font-heading-family: var(--font-heading), Georgia, "Times New Roman", serif;
   --font-body-family: var(--font-body), "Segoe UI", sans-serif;
@@ -25,6 +28,22 @@
   --container-width: 1240px;
 
   color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --color-brand: #f592c9;
+  --color-brand-dim: #ef73b8;
+  --color-bg: #1c1120;
+  --color-bg-raised: #271a2c;
+  --color-bg-raised-2: #32213a;
+  --color-border: #4a3350;
+  --color-text: #f5e9f4;
+  --color-text-muted: #b79bc0;
+  --color-hover-accent: #ecb6e8;
+  --color-tint: #3a2440;
+  --color-divider: rgba(255, 255, 255, 0.08);
+
+  color-scheme: dark;
 }
 
 *,
@@ -52,6 +71,7 @@ body {
   font-family: var(--font-body-family);
   font-size: 16px;
   line-height: 1.6;
+  transition: background-color 0.2s ease, color 0.2s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -70,7 +90,7 @@ h4 {
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0.01em;
-  color: #241226;
+  color: var(--color-text);
 }
 
 h1,
@@ -203,7 +223,7 @@ input:focus-visible,
 
 .btn-ghost:hover {
   border-color: var(--color-brand);
-  color: #cd98d8;
+  color: var(--color-hover-accent);
 }
 
 .mono-tag {
