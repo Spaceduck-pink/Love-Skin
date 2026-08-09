@@ -32,7 +32,12 @@ export default function Header() {
 
         <nav className={styles.nav} aria-label="Primary">
           {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} className={styles.navLink}>
+            <Link
+              key={link.href}
+              href={link.href}
+              className={styles.navLink}
+              prefetch={false}
+            >
               {link.label}
             </Link>
           ))}
@@ -67,6 +72,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               className={styles.mobileNavLink}
+              prefetch={false}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
