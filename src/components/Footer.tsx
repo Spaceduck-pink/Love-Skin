@@ -25,6 +25,18 @@ export default function Footer() {
           <Link href="/" className={styles.link}>
             Home
           </Link>
+          <Link href="/#how-it-works" className={styles.link} prefetch={false}>
+            How it works
+          </Link>
+          <Link href="/skin-profile" className={styles.link} prefetch={false}>
+            Skin Profile
+          </Link>
+          <Link href="/products" className={styles.link} prefetch={false}>
+            Products
+          </Link>
+          <Link href="/#about" className={styles.link} prefetch={false}>
+            About
+          </Link>
           <Link href="/quiz" className={styles.link}>
             Take the Quiz
           </Link>
