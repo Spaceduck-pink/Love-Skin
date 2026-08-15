@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { quizQuestions } from "@/lib/quiz-data";
 import { generateRoutine } from "@/lib/generate-routine";
+import { saveSkinProfile } from "@/lib/actions";
 import type { QuestionId, QuizAnswers } from "@/lib/types";
 import ProgressBar from "@/components/quiz/ProgressBar";
 import QuestionStep from "@/components/quiz/QuestionStep";
@@ -38,6 +39,14 @@ export default function QuizPage() {
     if (!showResults || !isCompleteAnswers(answers)) return null;
     return generateRoutine(answers as unknown as QuizAnswers);
   }, [showResults, answers]);
+
+  useEffect(() => {
+    if (!routine || !isCompleteAnswers(answers)) return;
+    saveSkinProfile(answers as unknown as QuizAnswers, routine).catch((error) => {
+      console.error("Failed to save skin profile:", error);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [routine]);
 
   const handleSelect = (value: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
