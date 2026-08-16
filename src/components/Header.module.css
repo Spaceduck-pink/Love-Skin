@@ -68,6 +68,30 @@ a.ctaDesktop {
   padding: 0.7rem 1.4rem;
 }
 
+.adminLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.adminLink:hover {
+  border-color: var(--color-brand);
+  color: var(--color-hover-accent);
+}
+
+.adminLink svg {
+  width: 20px;
+  height: 20px;
+}
+
 .menuToggle {
   display: inline-flex;
   align-items: center;
