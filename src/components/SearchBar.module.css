@@ -1,0 +1,110 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.trigger:hover,
+.trigger[aria-expanded="true"] {
+  border-color: var(--color-brand);
+  color: var(--color-hover-accent);
+}
+
+.trigger svg {
+  width: 20px;
+  height: 20px;
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: min(360px, calc(100vw - 2rem));
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 32px rgba(36, 18, 38, 0.18);
+  overflow: hidden;
+  z-index: 60;
+}
+
+.form {
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.input {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.results {
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  transition: background-color 0.15s ease;
+}
+
+.results li:last-child .result {
+  border-bottom: none;
+}
+
+.result:hover,
+.result:focus-visible {
+  background: var(--color-tint);
+}
+
+.resultTitle {
+  font-family: var(--font-lato-family);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.resultDescription {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 1rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}

@@ -45,7 +45,7 @@ export default async function ProductsPage() {
         <div className="container">
           <ol className={styles.productList}>
             {productTypes.map((product) => (
-              <li key={product.slug} className={styles.productRow}>
+              <li key={product.slug} id={product.slug} className={styles.productRow}>
                 <div className={styles.productHead}>
                   <span className={styles.productStep}>{String(product.step).padStart(2, "0")}</span>
                   <h3 className={styles.productTitle}>{product.title}</h3>

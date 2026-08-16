@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
+import SearchBar from "./SearchBar";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -46,6 +47,8 @@ export default function Header() {
         </nav>
 
         <div className={styles.actions}>
+          <SearchBar />
+
           <Link href="/quiz" className={`btn btn-primary ${styles.ctaDesktop}`}>
             Start Quiz
           </Link>
