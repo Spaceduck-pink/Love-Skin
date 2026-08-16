@@ -55,3 +55,24 @@ insert into public.skincare_products (step, slug, title, description) values
   (7, 'facial-oils', 'Facial oils', 'An optional finishing layer that seals in moisturizer and softens skin overnight.'),
   (8, 'spf', 'SPF', 'Broad-spectrum sun protection — the single most impactful step for keeping your skin healthy long-term.')
 on conflict (slug) do nothing;
+
+-- Newsletter signups from the form on every page.
+create table if not exists public.subscribers (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  first_name text not null,
+  email text not null unique
+);
+
+alter table public.subscribers enable row level security;
+
+-- Anyone using the public anon key can sign up for the newsletter...
+create policy "Allow anonymous inserts"
+  on public.subscribers
+  for insert
+  to anon
+  with check (true);
+
+-- ...but nobody can read, update, or delete rows with that key.
+-- The admin dashboard (/admin) uses the service role key, which bypasses
+-- RLS entirely, so no anon select/update/delete policies are needed here.
