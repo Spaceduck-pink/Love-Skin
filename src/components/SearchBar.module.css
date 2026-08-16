@@ -28,16 +28,26 @@
 }
 
 .panel {
-  position: absolute;
-  top: calc(100% + 0.75rem);
-  right: 0;
-  width: min(360px, calc(100vw - 2rem));
+  position: fixed;
+  top: calc(84px + 0.75rem);
+  left: 1rem;
+  right: 1rem;
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: 0 12px 32px rgba(36, 18, 38, 0.18);
   overflow: hidden;
   z-index: 60;
+}
+
+@media (min-width: 860px) {
+  .panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: auto;
+    right: 0;
+    width: min(360px, calc(100vw - 2rem));
+  }
 }
 
 .form {
