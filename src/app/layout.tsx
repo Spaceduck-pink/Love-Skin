@@ -47,13 +47,15 @@ export default async function RootLayout({
   } = await supabase.auth.getUser();
 
   let isAdmin = false;
+  let firstName: string | null = null;
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role")
+      .select("role, first_name")
       .eq("id", user.id)
       .single();
     isAdmin = profile?.role === "admin";
+    firstName = profile?.first_name ?? null;
   }
 
   return (
@@ -72,7 +74,7 @@ export default async function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <Header isSignedIn={!!user} isAdmin={isAdmin} />
+        <Header isSignedIn={!!user} isAdmin={isAdmin} firstName={firstName} />
         <main id="main-content">
           {children}
           <NewsletterForm />

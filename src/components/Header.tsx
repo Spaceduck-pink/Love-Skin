@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import SearchBar from "./SearchBar";
+import AccountMenu from "./AccountMenu";
 import { signInWithGoogle, signOut } from "@/lib/auth-actions";
 import styles from "./Header.module.css";
 
@@ -18,9 +19,10 @@ const navLinks = [
 interface HeaderProps {
   isSignedIn: boolean;
   isAdmin: boolean;
+  firstName: string | null;
 }
 
-export default function Header({ isSignedIn, isAdmin }: HeaderProps) {
+export default function Header({ isSignedIn, isAdmin, firstName }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const signIn = signInWithGoogle.bind(null, "/");
 
@@ -62,44 +64,10 @@ export default function Header({ isSignedIn, isAdmin }: HeaderProps) {
 
           <ThemeToggle />
 
-          {isAdmin && (
-            <Link href="/admin" className={styles.adminLink} aria-label="Admin dashboard">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <rect
-                  x="5"
-                  y="11"
-                  width="14"
-                  height="9"
-                  rx="1.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M8 11V7.5a4 4 0 0 1 8 0V11"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-          )}
-
           {isSignedIn ? (
-            <>
-              <Link href="/settings" className={`${styles.authLink} ${styles.authDesktop}`}>
-                Settings
-              </Link>
-              <form action={signOut} className={styles.authDesktop}>
-                <button type="submit" className={styles.authLink}>
-                  Log out
-                </button>
-              </form>
-            </>
+            <div className={styles.authDesktop}>
+              <AccountMenu isAdmin={isAdmin} firstName={firstName} />
+            </div>
           ) : (
             <form action={signIn} className={styles.authDesktop}>
               <button type="submit" className={styles.authLink}>
