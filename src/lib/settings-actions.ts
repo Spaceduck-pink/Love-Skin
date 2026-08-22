@@ -5,6 +5,7 @@ import { createClient } from "./supabase-server";
 
 export interface SettingsState {
   error?: string;
+  saved?: boolean;
   emailConfirmationSent?: boolean;
 }
 
@@ -48,5 +49,5 @@ export async function updateSettings(
   }
 
   revalidatePath("/settings");
-  return { emailConfirmationSent };
+  return { saved: true, emailConfirmationSent };
 }

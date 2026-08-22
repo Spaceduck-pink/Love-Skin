@@ -66,6 +66,11 @@ export default function SettingsForm({ firstName, lastName, email }: SettingsFor
           until you confirm it.
         </p>
       )}
+      {state.saved && !state.emailConfirmationSent && (
+        <p className={styles.notice} role="status">
+          Saved.
+        </p>
+      )}
     </form>
   );
 }

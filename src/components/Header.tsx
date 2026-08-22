@@ -103,7 +103,7 @@ export default function Header({ isSignedIn, isAdmin }: HeaderProps) {
           ) : (
             <form action={signIn} className={styles.authDesktop}>
               <button type="submit" className={styles.authLink}>
-                Log in with Google
+                Log in
               </button>
             </form>
           )}
@@ -174,7 +174,7 @@ export default function Header({ isSignedIn, isAdmin }: HeaderProps) {
           ) : (
             <form action={signIn}>
               <button type="submit" className={`${styles.mobileNavLink} ${styles.mobileNavButton}`}>
-                Log in with Google
+                Log in
               </button>
             </form>
           )}
