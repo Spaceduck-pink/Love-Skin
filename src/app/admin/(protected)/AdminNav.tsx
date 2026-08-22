@@ -8,6 +8,7 @@ import styles from "./layout.module.css";
 const links = [
   { href: "/admin/subscribers", label: "Subscribers" },
   { href: "/admin/products", label: "Products" },
+  { href: "/admin/users", label: "Users" },
 ];
 
 export default function AdminNav() {

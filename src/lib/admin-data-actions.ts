@@ -22,6 +22,8 @@ async function requireAdmin() {
   if (profile?.role !== "admin") {
     redirect("/");
   }
+
+  return user.id;
 }
 
 export interface FormState {
@@ -113,5 +115,39 @@ export async function updateProduct(
 
   revalidatePath("/admin/products");
   revalidatePath("/products");
+  return {};
+}
+
+// --- User profiles ---
+
+export async function updateUserProfile(
+  id: string,
+  _prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  const adminId = await requireAdmin();
+
+  const firstName = String(formData.get("firstName") ?? "").trim();
+  const lastName = String(formData.get("lastName") ?? "").trim();
+  const role = String(formData.get("role") ?? "");
+
+  if (role !== "user" && role !== "admin") {
+    return { error: "Choose a valid role." };
+  }
+
+  if (id === adminId && role !== "admin") {
+    return { error: "You can't remove your own admin role." };
+  }
+
+  const { error } = await supabaseAdmin
+    .from("profiles")
+    .update({ first_name: firstName || null, last_name: lastName || null, role })
+    .eq("id", id);
+
+  if (error) {
+    return { error: "Failed to save." };
+  }
+
+  revalidatePath("/admin/users");
   return {};
 }
