@@ -1,0 +1,50 @@
+.form {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.25rem;
+  max-width: 420px;
+}
+
+.field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.field label {
+  font-family: var(--font-lato-family);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.field input {
+  font-family: var(--font-body-family);
+  font-size: 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+}
+
+.field input:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
+
+.form button {
+  justify-self: start;
+  margin-top: 0.25rem;
+}
+
+.error {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+}
+
+.notice {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}

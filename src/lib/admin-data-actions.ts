@@ -3,12 +3,24 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "./supabase-admin";
-import { verifyAdminSession } from "./admin-auth";
+import { createClient } from "./supabase-server";
 
 async function requireAdmin() {
-  const isAuthed = await verifyAdminSession();
-  if (!isAuthed) {
-    redirect("/admin/login");
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    redirect("/");
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+  if (profile?.role !== "admin") {
+    redirect("/");
   }
 }
 

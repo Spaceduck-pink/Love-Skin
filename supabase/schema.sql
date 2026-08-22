@@ -76,3 +76,66 @@ create policy "Allow anonymous inserts"
 -- ...but nobody can read, update, or delete rows with that key.
 -- The admin dashboard (/admin) uses the service role key, which bypasses
 -- RLS entirely, so no anon select/update/delete policies are needed here.
+
+-- Profile row for every authenticated user (Google OAuth via Supabase Auth).
+-- Row is auto-created by the handle_new_user trigger below when a new
+-- auth.users row is inserted, so no client-side insert policy is needed.
+create table if not exists public.profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  first_name text,
+  last_name text,
+  role text not null default 'user' check (role in ('user', 'admin')),
+  created_at timestamptz not null default now()
+);
+
+alter table public.profiles enable row level security;
+
+-- Users can read and update only their own profile row. The update policy
+-- technically allows a user to send a role value, but the only write path
+-- (the settings page's server action) never sets role — promoting someone
+-- to admin is a manual edit in the Supabase Table Editor.
+create policy "Users can view their own profile"
+  on public.profiles
+  for select
+  to authenticated
+  using (id = auth.uid());
+
+create policy "Users can update their own profile"
+  on public.profiles
+  for update
+  to authenticated
+  using (id = auth.uid())
+  with check (id = auth.uid());
+
+-- Auto-create a profile row (role defaults to 'user') whenever a new
+-- Supabase Auth user signs up. Google's provider populates given_name/
+-- family_name directly; fall back to splitting full_name/name on the
+-- first space if only a combined name is present.
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  meta jsonb := new.raw_user_meta_data;
+  full_name text := coalesce(meta ->> 'full_name', meta ->> 'name');
+  first_name text := meta ->> 'given_name';
+  last_name text := meta ->> 'family_name';
+begin
+  if first_name is null and full_name is not null then
+    first_name := split_part(full_name, ' ', 1);
+    last_name := nullif(trim(substring(full_name from position(' ' in full_name))), '');
+  end if;
+
+  insert into public.profiles (id, first_name, last_name)
+  values (new.id, first_name, last_name)
+  on conflict (id) do nothing;
+
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();

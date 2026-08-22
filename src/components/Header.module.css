@@ -92,6 +92,28 @@ a.ctaDesktop {
   height: 20px;
 }
 
+.authDesktop {
+  display: none;
+}
+
+.authLink {
+  font-family: var(--font-lato-family);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.18s ease;
+}
+
+.authLink:hover {
+  color: var(--color-hover-accent);
+}
+
 .menuToggle {
   display: inline-flex;
   align-items: center;
@@ -182,6 +204,13 @@ a.ctaDesktop {
   width: 100%;
 }
 
+.mobileNavButton {
+  width: 100%;
+  text-align: left;
+  background: none;
+  cursor: pointer;
+}
+
 @media (min-width: 860px) {
   .nav {
     display: flex;
@@ -189,6 +218,11 @@ a.ctaDesktop {
 
   a.ctaDesktop {
     display: inline-flex;
+  }
+
+  .authDesktop {
+    display: inline-flex;
+    align-items: center;
   }
 
   .menuToggle {

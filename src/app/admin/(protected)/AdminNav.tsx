@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { logout } from "@/lib/admin-session-actions";
+import { signOut } from "@/lib/auth-actions";
 import styles from "./layout.module.css";
 
 const links = [
@@ -30,7 +30,7 @@ export default function AdminNav() {
         ))}
       </nav>
 
-      <form action={logout}>
+      <form action={signOut}>
         <button type="submit" className={styles.logoutBtn}>
           Log out
         </button>

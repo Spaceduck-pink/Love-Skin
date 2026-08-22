@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import SearchBar from "./SearchBar";
+import { signInWithGoogle, signOut } from "@/lib/auth-actions";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -14,8 +15,14 @@ const navLinks = [
   { href: "#newsletter", label: "Newsletter" },
 ];
 
-export default function Header() {
+interface HeaderProps {
+  isSignedIn: boolean;
+  isAdmin: boolean;
+}
+
+export default function Header({ isSignedIn, isAdmin }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const signIn = signInWithGoogle.bind(null, "/");
 
   return (
     <header className={styles.header}>
@@ -55,30 +62,51 @@ export default function Header() {
 
           <ThemeToggle />
 
-          <Link href="/admin" className={styles.adminLink} aria-label="Admin dashboard">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <rect
-                x="5"
-                y="11"
-                width="14"
-                height="9"
-                rx="1.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M8 11V7.5a4 4 0 0 1 8 0V11"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </Link>
+          {isAdmin && (
+            <Link href="/admin" className={styles.adminLink} aria-label="Admin dashboard">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <rect
+                  x="5"
+                  y="11"
+                  width="14"
+                  height="9"
+                  rx="1.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M8 11V7.5a4 4 0 0 1 8 0V11"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </Link>
+          )}
+
+          {isSignedIn ? (
+            <>
+              <Link href="/settings" className={`${styles.authLink} ${styles.authDesktop}`}>
+                Settings
+              </Link>
+              <form action={signOut} className={styles.authDesktop}>
+                <button type="submit" className={styles.authLink}>
+                  Log out
+                </button>
+              </form>
+            </>
+          ) : (
+            <form action={signIn} className={styles.authDesktop}>
+              <button type="submit" className={styles.authLink}>
+                Log in with Google
+              </button>
+            </form>
+          )}
 
           <button
             type="button"
@@ -117,6 +145,39 @@ export default function Header() {
           >
             Start Quiz
           </Link>
+
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className={styles.mobileNavLink}
+              onClick={() => setMenuOpen(false)}
+            >
+              Admin dashboard
+            </Link>
+          )}
+
+          {isSignedIn ? (
+            <>
+              <Link
+                href="/settings"
+                className={styles.mobileNavLink}
+                onClick={() => setMenuOpen(false)}
+              >
+                Settings
+              </Link>
+              <form action={signOut}>
+                <button type="submit" className={`${styles.mobileNavLink} ${styles.mobileNavButton}`}>
+                  Log out
+                </button>
+              </form>
+            </>
+          ) : (
+            <form action={signIn}>
+              <button type="submit" className={`${styles.mobileNavLink} ${styles.mobileNavButton}`}>
+                Log in with Google
+              </button>
+            </form>
+          )}
         </nav>
       </div>
     </header>

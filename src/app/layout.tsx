@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, JetBrains_Mono, Lato } from "next/font/google"
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NewsletterForm from "@/components/NewsletterForm";
+import { createClient } from "@/lib/supabase-server";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -35,11 +36,26 @@ export const metadata: Metadata = {
     "Answer a few quick questions and LoveSkin generates a personalized AM/PM skincare routine for you. No sign-up, no database — just your routine.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <html
       lang="en"
@@ -56,7 +72,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
-        <Header />
+        <Header isSignedIn={!!user} isAdmin={isAdmin} />
         <main id="main-content">
           {children}
           <NewsletterForm />
