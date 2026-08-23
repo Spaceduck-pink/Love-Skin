@@ -79,6 +79,14 @@ export default function AccountMenu({ isAdmin, firstName, username, avatarUrl }:
             </Link>
           )}
           <Link
+            href="/my-routine"
+            className={styles.item}
+            role="menuitem"
+            onClick={() => setOpen(false)}
+          >
+            My routine
+          </Link>
+          <Link
             href="/settings"
             className={styles.item}
             role="menuitem"

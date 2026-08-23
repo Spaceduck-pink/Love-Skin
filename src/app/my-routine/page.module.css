@@ -1,0 +1,54 @@
+.section {
+  padding-block: 3rem 5rem;
+}
+
+.inner {
+  max-width: 760px;
+}
+
+.empty {
+  max-width: 480px;
+  padding-block: 4rem;
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+}
+
+.empty h1 {
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+}
+
+.empty p {
+  color: var(--color-text-muted);
+}
+
+.heading {
+  margin-bottom: 2.5rem;
+}
+
+.heading h1 {
+  font-size: clamp(1.7rem, 4vw, 2.2rem);
+  margin-top: 0.5rem;
+}
+
+.heading p {
+  max-width: 65ch;
+  margin-top: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.retake {
+  display: inline-block;
+  margin-top: 1rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+}
+
+.retake:hover {
+  color: var(--color-brand);
+}

@@ -1,0 +1,122 @@
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--color-bg-raised);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.cardHeading {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.stepList {
+  display: grid;
+  gap: 1rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.step:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stepIndex {
+  flex-shrink: 0;
+  font-family: var(--font-heading-family);
+  font-size: 0.9rem;
+  color: var(--color-brand-dim);
+  padding-top: 0.6rem;
+}
+
+.stepFields {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.stepFields input,
+.stepFields textarea {
+  font-family: var(--font-body-family);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  color: var(--color-text);
+  width: 100%;
+}
+
+.stepFields textarea {
+  resize: vertical;
+  min-height: 2.5rem;
+}
+
+.stepFields input:focus-visible,
+.stepFields textarea:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 1px;
+}
+
+.removeBtn {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  margin-top: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-raised);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.removeBtn:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.addBtn {
+  margin-top: 1.25rem;
+}
+
+.form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.error {
+  color: var(--color-accent);
+  font-size: 0.85rem;
+}
+
+.notice {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+@media (min-width: 800px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

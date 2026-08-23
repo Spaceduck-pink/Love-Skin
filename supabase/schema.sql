@@ -230,3 +230,46 @@ create policy "Users can delete their own avatar"
   for delete
   to authenticated
   using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- Link skin_profiles to the signed-in user who took the quiz, so the
+-- outcome can be shown back on their account and the AM/PM routine can be
+-- edited afterward. Anonymous quiz takers (no session) still get a row
+-- with user_id null, matching the existing anon-insert-only behavior.
+alter table public.skin_profiles add column if not exists user_id uuid references auth.users(id) on delete cascade;
+
+-- One profile per user: retaking the quiz overwrites the existing row via
+-- upsert instead of piling up duplicates. A plain (non-partial) unique
+-- constraint is required here, not a partial index — Postgres only infers
+-- partial indexes for ON CONFLICT targets when the same predicate is
+-- repeated in the conflict clause, which Supabase's .upsert() doesn't do.
+-- A plain unique constraint still allows any number of anonymous rows
+-- (user_id null), since Postgres treats NULL as distinct from every other
+-- NULL for uniqueness purposes.
+alter table public.skin_profiles drop constraint if exists skin_profiles_user_id_key;
+alter table public.skin_profiles add constraint skin_profiles_user_id_key unique (user_id);
+
+-- Signed-in users can save and read back their own quiz result. The
+-- existing "Allow anonymous inserts" policy above is unaffected — it still
+-- lets signed-out visitors take the quiz, just with no way to read the row
+-- back (matching current behavior).
+drop policy if exists "Users can view their own skin profile" on public.skin_profiles;
+create policy "Users can view their own skin profile"
+  on public.skin_profiles
+  for select
+  to authenticated
+  using (user_id = auth.uid());
+
+drop policy if exists "Users can insert their own skin profile" on public.skin_profiles;
+create policy "Users can insert their own skin profile"
+  on public.skin_profiles
+  for insert
+  to authenticated
+  with check (user_id = auth.uid());
+
+drop policy if exists "Users can update their own skin profile" on public.skin_profiles;
+create policy "Users can update their own skin profile"
+  on public.skin_profiles
+  for update
+  to authenticated
+  using (user_id = auth.uid())
+  with check (user_id = auth.uid());

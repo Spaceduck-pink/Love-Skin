@@ -149,6 +149,13 @@ export default function Header({
                 </Link>
               )}
               <Link
+                href="/my-routine"
+                className={styles.mobileNavLink}
+                onClick={() => setMenuOpen(false)}
+              >
+                My routine
+              </Link>
+              <Link
                 href="/settings"
                 className={styles.mobileNavLink}
                 onClick={() => setMenuOpen(false)}
