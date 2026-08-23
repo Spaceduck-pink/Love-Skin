@@ -32,6 +32,14 @@ function RoutineList({ period, label, steps, onChange }: RoutineListProps) {
     onChange(steps.filter((_, i) => i !== index));
   };
 
+  const moveStep = (index: number, direction: -1 | 1) => {
+    const target = index + direction;
+    if (target < 0 || target >= steps.length) return;
+    const next = [...steps];
+    [next[index], next[target]] = [next[target], next[index]];
+    onChange(next);
+  };
+
   const addStep = () => {
     onChange([...steps, emptyStep()]);
   };
@@ -57,6 +65,26 @@ function RoutineList({ period, label, steps, onChange }: RoutineListProps) {
                 aria-label={`${label} step ${index + 1} title`}
                 required
               />
+              <div className={styles.moveControls}>
+                <button
+                  type="button"
+                  className={styles.moveBtn}
+                  onClick={() => moveStep(index, -1)}
+                  disabled={index === 0}
+                  aria-label={`Move ${label.toLowerCase()} step ${index + 1} up`}
+                >
+                  ▲
+                </button>
+                <button
+                  type="button"
+                  className={styles.moveBtn}
+                  onClick={() => moveStep(index, 1)}
+                  disabled={index === steps.length - 1}
+                  aria-label={`Move ${label.toLowerCase()} step ${index + 1} down`}
+                >
+                  ▼
+                </button>
+              </div>
               <button
                 type="button"
                 className={styles.removeBtn}
