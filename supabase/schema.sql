@@ -139,3 +139,94 @@ drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- Public profile fields, shown at /u/[username]. avatar_url holds whichever
+-- photo is currently active — seeded from the Google account photo on
+-- sign-up, replaceable with an upload, and resettable back to the Google
+-- photo. All of it is writable through the existing "Users can update their
+-- own profile" policy above, so no new RLS policies are needed here.
+alter table public.profiles add column if not exists username text;
+alter table public.profiles add column if not exists bio text;
+alter table public.profiles add column if not exists website_url text;
+alter table public.profiles add column if not exists instagram_url text;
+alter table public.profiles add column if not exists tiktok_url text;
+alter table public.profiles add column if not exists avatar_url text;
+
+-- Case-insensitive uniqueness so "JaneDoe" and "janedoe" can't both exist.
+create unique index if not exists profiles_username_lower_idx
+  on public.profiles (lower(username))
+  where username is not null;
+
+-- Keep usernames to a predictable, URL-safe shape.
+alter table public.profiles drop constraint if exists profiles_username_format;
+alter table public.profiles
+  add constraint profiles_username_format
+  check (username is null or username ~ '^[a-z0-9_]{3,20}$');
+
+-- Backfill avatar_url for profiles created before this column existed, from
+-- whatever photo Google supplied at sign-up.
+update public.profiles p
+set avatar_url = coalesce(u.raw_user_meta_data ->> 'avatar_url', u.raw_user_meta_data ->> 'picture')
+from auth.users u
+where p.id = u.id and p.avatar_url is null;
+
+-- Re-seed new profiles with their Google photo as the initial avatar.
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  meta jsonb := new.raw_user_meta_data;
+  full_name text := coalesce(meta ->> 'full_name', meta ->> 'name');
+  first_name text := meta ->> 'given_name';
+  last_name text := meta ->> 'family_name';
+  avatar_url text := coalesce(meta ->> 'avatar_url', meta ->> 'picture');
+begin
+  if first_name is null and full_name is not null then
+    first_name := split_part(full_name, ' ', 1);
+    last_name := nullif(trim(substring(full_name from position(' ' in full_name))), '');
+  end if;
+
+  insert into public.profiles (id, first_name, last_name, avatar_url)
+  values (new.id, first_name, last_name, avatar_url)
+  on conflict (id) do nothing;
+
+  return new;
+end;
+$$;
+
+-- Storage bucket for user-uploaded avatars. Public so avatar images can be
+-- shown on the public profile page without signed URLs; each user may only
+-- write inside their own "<user id>/..." folder.
+insert into storage.buckets (id, name, public)
+values ('avatars', 'avatars', true)
+on conflict (id) do nothing;
+
+drop policy if exists "Avatar images are publicly accessible" on storage.objects;
+create policy "Avatar images are publicly accessible"
+  on storage.objects
+  for select
+  to public
+  using (bucket_id = 'avatars');
+
+drop policy if exists "Users can upload their own avatar" on storage.objects;
+create policy "Users can upload their own avatar"
+  on storage.objects
+  for insert
+  to authenticated
+  with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+
+drop policy if exists "Users can update their own avatar" on storage.objects;
+create policy "Users can update their own avatar"
+  on storage.objects
+  for update
+  to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+
+drop policy if exists "Users can delete their own avatar" on storage.objects;
+create policy "Users can delete their own avatar"
+  on storage.objects
+  for delete
+  to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);

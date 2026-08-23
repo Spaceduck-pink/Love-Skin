@@ -20,9 +20,17 @@ interface HeaderProps {
   isSignedIn: boolean;
   isAdmin: boolean;
   firstName: string | null;
+  username: string | null;
+  avatarUrl: string | null;
 }
 
-export default function Header({ isSignedIn, isAdmin, firstName }: HeaderProps) {
+export default function Header({
+  isSignedIn,
+  isAdmin,
+  firstName,
+  username,
+  avatarUrl,
+}: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const signIn = signInWithGoogle.bind(null, "/");
 
@@ -66,7 +74,12 @@ export default function Header({ isSignedIn, isAdmin, firstName }: HeaderProps) 
 
           {isSignedIn ? (
             <div className={styles.authDesktop}>
-              <AccountMenu isAdmin={isAdmin} firstName={firstName} />
+              <AccountMenu
+                isAdmin={isAdmin}
+                firstName={firstName}
+                username={username}
+                avatarUrl={avatarUrl}
+              />
             </div>
           ) : (
             <form action={signIn} className={styles.authDesktop}>
@@ -126,6 +139,15 @@ export default function Header({ isSignedIn, isAdmin, firstName }: HeaderProps) 
 
           {isSignedIn ? (
             <>
+              {username && (
+                <Link
+                  href={`/u/${username}`}
+                  className={styles.mobileNavLink}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  View profile
+                </Link>
+              )}
               <Link
                 href="/settings"
                 className={styles.mobileNavLink}

@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { signOut } from "@/lib/auth-actions";
+import Avatar from "./Avatar";
 import styles from "./AccountMenu.module.css";
 
 interface AccountMenuProps {
   isAdmin: boolean;
   firstName: string | null;
+  username: string | null;
+  avatarUrl: string | null;
 }
 
-export default function AccountMenu({ isAdmin, firstName }: AccountMenuProps) {
+export default function AccountMenu({ isAdmin, firstName, username, avatarUrl }: AccountMenuProps) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -44,6 +47,7 @@ export default function AccountMenu({ isAdmin, firstName }: AccountMenuProps) {
         aria-expanded={open}
         onClick={() => setOpen((value) => !value)}
       >
+        <Avatar avatarUrl={avatarUrl} name={firstName} size={24} />
         {firstName || "Account"}
         <svg
           className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`}
@@ -64,6 +68,16 @@ export default function AccountMenu({ isAdmin, firstName }: AccountMenuProps) {
 
       {open && (
         <div className={styles.panel} role="menu">
+          {username && (
+            <Link
+              href={`/u/${username}`}
+              className={styles.item}
+              role="menuitem"
+              onClick={() => setOpen(false)}
+            >
+              View profile
+            </Link>
+          )}
           <Link
             href="/settings"
             className={styles.item}

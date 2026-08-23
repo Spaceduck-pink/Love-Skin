@@ -14,3 +14,18 @@
   margin-top: 0.5rem;
   color: var(--color-text-muted);
 }
+
+.viewProfile {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+}
+
+.viewProfile:hover {
+  color: var(--color-brand);
+}
