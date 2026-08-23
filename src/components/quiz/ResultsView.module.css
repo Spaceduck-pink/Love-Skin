@@ -140,10 +140,21 @@
   color: var(--color-brand);
 }
 
+.savedNotice {
+  margin-top: 2rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-brand-dim);
+}
+
 .actions {
-  margin-top: 2.5rem;
+  margin-top: 1.25rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 1rem;
 }
 
 @media (min-width: 800px) {

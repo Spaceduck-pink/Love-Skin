@@ -1,15 +1,17 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import Link from "next/link";
 import type { RoutineResult } from "@/lib/types";
 import styles from "./ResultsView.module.css";
 
 interface ResultsViewProps {
   routine: RoutineResult;
   onRetake: () => void;
+  savedToProfile: boolean;
 }
 
-export default function ResultsView({ routine, onRetake }: ResultsViewProps) {
+export default function ResultsView({ routine, onRetake, savedToProfile }: ResultsViewProps) {
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -106,7 +108,18 @@ export default function ResultsView({ routine, onRetake }: ResultsViewProps) {
         </ul>
       </section>
 
+      {savedToProfile && (
+        <p className={styles.savedNotice} role="status">
+          ✓ Added to your profile
+        </p>
+      )}
+
       <div className={styles.actions}>
+        {savedToProfile && (
+          <Link href="/my-routine" className="btn btn-primary">
+            Go to my routine
+          </Link>
+        )}
         <button type="button" className="btn btn-ghost" onClick={onRetake}>
           Retake the quiz
         </button>

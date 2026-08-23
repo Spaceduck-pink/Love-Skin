@@ -4,7 +4,10 @@ import { supabase } from "./supabase";
 import { createClient } from "./supabase-server";
 import type { QuizAnswers, RoutineResult } from "./types";
 
-export async function saveSkinProfile(answers: QuizAnswers, routine: RoutineResult) {
+export async function saveSkinProfile(
+  answers: QuizAnswers,
+  routine: RoutineResult,
+): Promise<{ savedToProfile: boolean }> {
   const payload = {
     skin_type: answers.skinType,
     concern: answers.concern,
@@ -32,7 +35,10 @@ export async function saveSkinProfile(answers: QuizAnswers, routine: RoutineResu
 
   if (error) {
     console.error("Failed to save skin profile:", error.message);
+    return { savedToProfile: false };
   }
+
+  return { savedToProfile: Boolean(user) };
 }
 
 export interface NewsletterState {

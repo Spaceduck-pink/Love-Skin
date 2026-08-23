@@ -23,6 +23,7 @@ export default function QuizPage() {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<PartialAnswers>({});
   const [showResults, setShowResults] = useState(false);
+  const [savedToProfile, setSavedToProfile] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const currentQuestion = quizQuestions[stepIndex];
@@ -42,9 +43,11 @@ export default function QuizPage() {
 
   useEffect(() => {
     if (!routine || !isCompleteAnswers(answers)) return;
-    saveSkinProfile(answers as unknown as QuizAnswers, routine).catch((error) => {
-      console.error("Failed to save skin profile:", error);
-    });
+    saveSkinProfile(answers as unknown as QuizAnswers, routine)
+      .then(({ savedToProfile }) => setSavedToProfile(savedToProfile))
+      .catch((error) => {
+        console.error("Failed to save skin profile:", error);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routine]);
 
@@ -69,12 +72,13 @@ export default function QuizPage() {
     setAnswers({});
     setStepIndex(0);
     setShowResults(false);
+    setSavedToProfile(false);
   };
 
   if (showResults && routine) {
     return (
       <div className="container">
-        <ResultsView routine={routine} onRetake={handleRetake} />
+        <ResultsView routine={routine} onRetake={handleRetake} savedToProfile={savedToProfile} />
       </div>
     );
   }
