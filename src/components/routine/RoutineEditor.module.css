@@ -1,9 +1,15 @@
 .grid {
   display: grid;
+  /* An implicit grid track sizes to its content's max-content width by
+     default (same as a grid item's min-width: auto) and can overflow the
+     container instead of shrinking — minmax(0, 1fr) lets it shrink freely.
+     Applies at every single-column grid below (.stepList, .step) too. */
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
 }
 
 .card {
+  min-width: 0;
   background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -19,11 +25,13 @@
 
 .stepList {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.9rem;
 }
 
 .step {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.65rem;
   padding: 1rem 1.1rem;
   background: var(--color-bg-raised-2);
