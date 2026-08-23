@@ -26,11 +26,11 @@ const steps = [
 const features = [
   {
     title: "Fast",
-    body: "Five questions, under a minute. No lengthy forms or account setup required.",
+    body: "Five questions, under a minute — get your routine right away.",
   },
   {
-    title: "Private by default",
-    body: "Nothing is saved to a server or database — your answers live only in your browser tab.",
+    title: "No account required",
+    body: "Take the quiz and get your full routine without signing up. Create an account later if you'd like to save your profile.",
   },
   {
     title: "Actually personalized",
@@ -48,7 +48,6 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroCopy}>
-            <span className="mono-tag">No sign-up · No database · Just your routine</span>
             <h1 className={styles.heroTitle}>
               Skincare,
               <br />
@@ -57,7 +56,7 @@ export default function Home() {
             <p className={styles.heroSubtitle}>
               LoveSkin asks a few smart questions about your skin, then builds a
               personalized morning and evening routine on the spot — no
-              account, no data collection, no fuss.
+              account required, no fuss.
             </p>
             <div className={styles.heroActions}>
               <Link href="/quiz" className="btn btn-primary">
@@ -137,7 +136,7 @@ export default function Home() {
       <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to meet your skin?</h2>
-          <p>It takes less than a minute and there&apos;s nothing to sign up for.</p>
+          <p>It takes less than a minute and you don&apos;t need an account to get started.</p>
           <Link href="/quiz" className="btn btn-primary">
             Start the Quiz
           </Link>
