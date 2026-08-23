@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
+import { supabase } from "@/lib/supabase";
 import type { RoutineResult } from "@/lib/types";
 import RoutineEditor from "@/components/routine/RoutineEditor";
 import styles from "./page.module.css";
@@ -12,16 +13,16 @@ export const metadata: Metadata = {
 };
 
 export default async function MyRoutinePage() {
-  const supabase = await createClient();
+  const supabaseServer = await createClient();
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabaseServer.auth.getUser();
 
   if (!user) {
     redirect("/");
   }
 
-  const { data: profile } = await supabase
+  const { data: profile } = await supabaseServer
     .from("skin_profiles")
     .select("routine")
     .eq("user_id", user.id)
@@ -47,6 +48,11 @@ export default async function MyRoutinePage() {
     );
   }
 
+  const { data: products } = await supabase
+    .from("skincare_products")
+    .select("title, description")
+    .order("step");
+
   return (
     <section className={styles.section}>
       <div className={`container ${styles.inner}`}>
@@ -59,7 +65,7 @@ export default async function MyRoutinePage() {
           </Link>
         </div>
 
-        <RoutineEditor am={routine.am} pm={routine.pm} />
+        <RoutineEditor am={routine.am} pm={routine.pm} products={products ?? []} />
       </div>
     </section>
   );

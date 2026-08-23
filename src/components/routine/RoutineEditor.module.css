@@ -168,6 +168,13 @@
   background: var(--color-tint);
 }
 
+.hint {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
 .form {
   display: grid;
   gap: 1.5rem;
