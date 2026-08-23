@@ -17,7 +17,7 @@ export default function AdminNav() {
   return (
     <div className={styles.bar}>
       <nav className={styles.nav} aria-label="Admin">
-        <Link href="/admin/subscribers" className={styles.navLink} style={{ fontWeight: 700 }}>
+        <Link href="/admin" className={styles.navLink} style={{ fontWeight: 700 }}>
           LoveSkin Admin
         </Link>
         {links.map((link) => (
