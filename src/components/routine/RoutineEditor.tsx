@@ -44,8 +44,8 @@ function RoutineList({ period, label, steps, onChange }: RoutineListProps) {
       <ol className={styles.stepList}>
         {steps.map((step, index) => (
           <li key={index} className={styles.step}>
-            <span className={styles.stepIndex}>{String(index + 1).padStart(2, "0")}</span>
-            <div className={styles.stepFields}>
+            <div className={styles.stepHeader}>
+              <span className={styles.stepIndex}>{index + 1}</span>
               <input
                 type="text"
                 name={`${period}Title`}
@@ -53,31 +53,33 @@ function RoutineList({ period, label, steps, onChange }: RoutineListProps) {
                 onChange={(event) => updateStep(index, "title", event.target.value)}
                 placeholder="Step title"
                 maxLength={80}
+                className={styles.titleInput}
                 aria-label={`${label} step ${index + 1} title`}
                 required
               />
-              <textarea
-                name={`${period}Description`}
-                value={step.description}
-                onChange={(event) => updateStep(index, "description", event.target.value)}
-                placeholder="Notes (optional)"
-                maxLength={280}
-                rows={2}
-                aria-label={`${label} step ${index + 1} notes`}
-              />
+              <button
+                type="button"
+                className={styles.removeBtn}
+                onClick={() => removeStep(index)}
+                aria-label={`Remove ${label.toLowerCase()} step ${index + 1}`}
+              >
+                ✕
+              </button>
             </div>
-            <button
-              type="button"
-              className={styles.removeBtn}
-              onClick={() => removeStep(index)}
-              aria-label={`Remove ${label.toLowerCase()} step ${index + 1}`}
-            >
-              ✕
-            </button>
+            <textarea
+              name={`${period}Description`}
+              value={step.description}
+              onChange={(event) => updateStep(index, "description", event.target.value)}
+              placeholder="Notes (optional)"
+              maxLength={280}
+              rows={3}
+              className={styles.descriptionInput}
+              aria-label={`${label} step ${index + 1} notes`}
+            />
           </li>
         ))}
       </ol>
-      <button type="button" className={`btn btn-ghost ${styles.addBtn}`} onClick={addStep}>
+      <button type="button" className={styles.addBtn} onClick={addStep}>
         + Add step
       </button>
     </section>

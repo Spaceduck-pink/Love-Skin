@@ -19,79 +19,122 @@
 
 .stepList {
   display: grid;
-  gap: 1rem;
+  gap: 0.9rem;
 }
 
 .step {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--color-divider);
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem 1.1rem;
+  background: var(--color-bg-raised-2);
+  border-radius: var(--radius-lg);
 }
 
-.step:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
 }
 
 .stepIndex {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-brand);
   font-family: var(--font-heading-family);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--color-brand-dim);
-  padding-top: 0.6rem;
+  background: var(--color-bg-raised);
 }
 
-.stepFields {
+.titleInput {
   flex: 1;
   min-width: 0;
-  display: grid;
-  gap: 0.5rem;
+  font-family: var(--font-body-family);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-divider);
+  border-radius: 0;
+  padding: 0.3rem 0.1rem;
 }
 
-.stepFields input,
-.stepFields textarea {
+.titleInput::placeholder {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.titleInput:focus-visible {
+  outline: none;
+  border-bottom-color: var(--color-brand);
+}
+
+.descriptionInput {
+  width: 100%;
+  resize: vertical;
+  min-height: 4.8rem;
   font-family: var(--font-body-family);
-  font-size: 0.95rem;
-  padding: 0.6rem 0.75rem;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-raised);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  color: var(--color-text);
-  width: 100%;
+  padding: 0.6rem 0.75rem;
 }
 
-.stepFields textarea {
-  resize: vertical;
-  min-height: 2.5rem;
-}
-
-.stepFields input:focus-visible,
-.stepFields textarea:focus-visible {
+.descriptionInput:focus-visible {
   outline: 2px solid var(--color-brand);
   outline-offset: 1px;
+  color: var(--color-text);
 }
 
 .removeBtn {
   flex-shrink: 0;
-  width: 2rem;
-  height: 2rem;
-  margin-top: 0.35rem;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg-raised);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--color-text-muted);
-  cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .removeBtn:hover {
   color: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--color-tint);
 }
 
 .addBtn {
-  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 1.1rem;
+  padding: 0.75rem;
+  font-family: var(--font-lato-family);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+  background: transparent;
+  border: 1px dashed var(--color-brand);
+  border-radius: var(--radius-lg);
+}
+
+.addBtn:hover {
+  color: var(--color-brand-dim);
+  background: var(--color-tint);
 }
 
 .form {
