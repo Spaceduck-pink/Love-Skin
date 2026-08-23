@@ -66,6 +66,19 @@ export default async function MyRoutinePage() {
         </div>
 
         <RoutineEditor am={routine.am} pm={routine.pm} products={products ?? []} />
+
+        {routine.tips.length > 0 && (
+          <section className={styles.tipsCard} aria-labelledby="tips-heading">
+            <h2 id="tips-heading" className={styles.tipsHeading}>
+              A few extra notes
+            </h2>
+            <ul className={styles.tipsList}>
+              {routine.tips.map((tip, index) => (
+                <li key={index}>{tip}</li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </section>
   );
