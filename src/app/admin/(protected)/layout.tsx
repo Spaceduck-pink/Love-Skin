@@ -31,11 +31,11 @@ export default async function AdminProtectedLayout({
   }
 
   return (
-    <div className={styles.shell}>
+    <main id="main-content" className={styles.shell}>
       <div className="container">
         <AdminNav />
       </div>
       <div className={`container ${styles.content}`}>{children}</div>
-    </div>
+    </main>
   );
 }

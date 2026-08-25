@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import NewsletterForm from "@/components/NewsletterForm";
 import styles from "./page.module.css";
 
 const steps = [
@@ -142,6 +143,8 @@ export default function Home() {
           </Link>
         </div>
       </FadeIn>
+
+      <NewsletterForm />
     </>
   );
 }
