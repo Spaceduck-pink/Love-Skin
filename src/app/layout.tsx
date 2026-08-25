@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono, Lato } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -54,6 +55,11 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="a9b07787-ba78-41cd-bb97-7cf57c4c9fe0"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
