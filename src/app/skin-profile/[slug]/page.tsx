@@ -10,6 +10,7 @@ import {
   skinTypeImageAlt,
   skinTypeOrder,
 } from "@/lib/skin-profile-content";
+import { productTitles, skinTypeDrivenProducts } from "@/lib/product-content";
 import type { SkinType } from "@/lib/types";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
@@ -165,6 +166,19 @@ export default async function SkinTypePage({
                 <h3 className={styles.faqQuestion}>{faq.q}</h3>
                 <p>{faq.a}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </FadeIn>
+
+      <FadeIn className={styles.section}>
+        <div className="container">
+          <h2 className={styles.sectionTitle}>Products for {content.title.toLowerCase()} skin</h2>
+          <div className={styles.relatedGrid}>
+            {skinTypeDrivenProducts.map((productSlug) => (
+              <Link key={productSlug} href={`/products/${productSlug}`} className={styles.relatedPill}>
+                {productTitles[productSlug]}
+              </Link>
             ))}
           </div>
         </div>

@@ -7,6 +7,31 @@ export interface ProductContent {
   faqs: Faq[];
 }
 
+// Cleansers, toners, moisturizers, oils, and SPF are formulated differently
+// per skin type (see skinTypeProfiles / spfStep in generate-routine.ts).
+// Serums and eye creams are chosen by concern instead (see concernProfiles).
+export const skinTypeDrivenProducts = [
+  "cleansers",
+  "oil-cleansers",
+  "toners",
+  "moisturizers",
+  "facial-oils",
+  "spf",
+];
+
+export const concernDrivenProducts = ["serums-treatments", "eye-creams"];
+
+export const productTitles: Record<string, string> = {
+  cleansers: "Cleansers",
+  "oil-cleansers": "Oil cleansers",
+  toners: "Toners",
+  "serums-treatments": "Serums & treatments",
+  "eye-creams": "Eye creams",
+  moisturizers: "Moisturizers",
+  "facial-oils": "Facial oils",
+  spf: "SPF",
+};
+
 export const productImageAlt: Record<string, string> = {
   cleansers: "A cleanser bottle styled with laboratory glassware on a pink background.",
   "oil-cleansers": "Two glass bottles of cleansing oil on a clean white surface.",

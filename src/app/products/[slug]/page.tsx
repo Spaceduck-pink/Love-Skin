@@ -4,7 +4,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import { supabase } from "@/lib/supabase";
-import { productContent, productImageAlt } from "@/lib/product-content";
+import {
+  concernDrivenProducts,
+  productContent,
+  productImageAlt,
+  skinTypeDrivenProducts,
+} from "@/lib/product-content";
+import { concernContent, concernOrder, skinTypeContent, skinTypeOrder } from "@/lib/skin-profile-content";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
 
@@ -69,6 +75,8 @@ export default async function ProductDetailPage({
   if (!product) notFound();
 
   const extra = productContent[product.slug];
+  const isSkinTypeDriven = skinTypeDrivenProducts.includes(product.slug);
+  const isConcernDriven = concernDrivenProducts.includes(product.slug);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -140,6 +148,44 @@ export default async function ProductDetailPage({
               <p>{extra.skinTypeNotes}</p>
             </div>
           </FadeIn>
+
+          {isSkinTypeDriven && (
+            <FadeIn className={styles.section}>
+              <div className="container">
+                <h2 className={styles.sectionTitle}>Find your formula by skin type</h2>
+                <div className={styles.relatedGrid}>
+                  {skinTypeOrder.map((typeSlug) => (
+                    <Link
+                      key={typeSlug}
+                      href={`/skin-profile/${typeSlug}`}
+                      className={styles.relatedPill}
+                    >
+                      {skinTypeContent[typeSlug].title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          )}
+
+          {isConcernDriven && (
+            <FadeIn className={styles.section}>
+              <div className="container">
+                <h2 className={styles.sectionTitle}>Choose based on your main concern</h2>
+                <div className={styles.relatedGrid}>
+                  {concernOrder.map((concernSlug) => (
+                    <Link
+                      key={concernSlug}
+                      href={`/skin-profile/concerns/${concernSlug}`}
+                      className={styles.relatedPill}
+                    >
+                      {concernContent[concernSlug].title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+          )}
 
           <FadeIn className={styles.section}>
             <div className="container">
