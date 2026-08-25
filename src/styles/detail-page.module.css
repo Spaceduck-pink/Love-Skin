@@ -1,0 +1,213 @@
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 2rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--color-brand-dim);
+}
+
+.hero {
+  padding-block: 1.25rem 2rem;
+}
+
+.heroInner {
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.heroTagline {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.heroSummary {
+  font-size: 1.02rem;
+  max-width: 65ch;
+}
+
+.heroImageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-bg-raised-2);
+}
+
+@media (min-width: 700px) {
+  .heroImageWrap {
+    aspect-ratio: 21 / 9;
+  }
+}
+
+.heroImg {
+  object-fit: cover;
+}
+
+.section {
+  padding-block: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.section:first-of-type {
+  border-top: none;
+}
+
+.sectionTitle {
+  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+  margin-bottom: 1.25rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.list li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 1.02rem;
+  color: var(--color-text);
+}
+
+.list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-dim);
+}
+
+.mistakeList li::before {
+  background: var(--color-accent);
+}
+
+.twoCol {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 700px) {
+  .twoCol {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.colHeading {
+  font-family: var(--font-lato-family);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+  margin-bottom: 0.85rem;
+  display: block;
+}
+
+.treatmentGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.treatmentCard {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.treatmentTitle {
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+.tipBox {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.tipLabel {
+  font-family: var(--font-lato-family);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+}
+
+.faqList {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.faqItem {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.faqQuestion {
+  font-size: 1.05rem;
+  color: var(--color-text);
+}
+
+.relatedGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.relatedPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-lato-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.relatedPill:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand-dim);
+}
+
+.ctaBanner {
+  padding-block: 1rem 5rem;
+}
+
+.ctaInner {
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 1.5rem;
+}
+
+.ctaInner h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}

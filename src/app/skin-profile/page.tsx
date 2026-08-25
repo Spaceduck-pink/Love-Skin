@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
+import { concernContent, concernOrder, skinTypeContent, skinTypeOrder } from "@/lib/skin-profile-content";
 import styles from "./page.module.css";
+import detailStyles from "@/styles/detail-page.module.css";
 
 export const metadata: Metadata = {
   title: "Skin Profile — LoveSkin",
@@ -9,61 +12,19 @@ export const metadata: Metadata = {
     "How LoveSkin maps your quiz answers into a skin type and concern profile that shapes your personalized AM/PM routine.",
 };
 
-const skinTypes = [
-  {
-    label: "Skin type",
-    title: "Oily",
-    body: "Shiny most of the day and prone to enlarged pores. Routines lean on lightweight, oil-free formulas that won't clog pores.",
-  },
-  {
-    label: "Skin type",
-    title: "Dry",
-    body: "Feels tight, flaky, or rough. Routines focus on rich, barrier-supporting hydration to ease tightness.",
-  },
-  {
-    label: "Skin type",
-    title: "Combination",
-    body: "An oily T-zone with drier cheeks. Routines balance oil control with hydration across different areas.",
-  },
-  {
-    label: "Skin type",
-    title: "Normal",
-    body: "Fairly balanced and rarely irritated. Routines keep things simple and consistent.",
-  },
-  {
-    label: "Skin type",
-    title: "Sensitive",
-    body: "Reacts easily, with redness or stinging. Routines prioritize fragrance-free, barrier-supporting products.",
-  },
-];
+const skinTypes = skinTypeOrder.map((slug) => ({
+  label: "Skin type",
+  title: skinTypeContent[slug].title,
+  body: skinTypeContent[slug].tagline,
+  href: `/skin-profile/${slug}`,
+}));
 
-const concerns = [
-  {
-    label: "Concern",
-    title: "Acne & breakouts",
-    body: "Treatments focus on regulating oil and clearing pores, without over-drying the skin.",
-  },
-  {
-    label: "Concern",
-    title: "Dullness & uneven texture",
-    body: "Treatments brighten tone and gently resurface skin to smooth texture over time.",
-  },
-  {
-    label: "Concern",
-    title: "Fine lines & aging",
-    body: "Treatments support cell turnover and firmness, paired with antioxidant protection.",
-  },
-  {
-    label: "Concern",
-    title: "Dark spots & hyperpigmentation",
-    body: "Treatments target existing spots and help prevent new ones from environmental exposure.",
-  },
-  {
-    label: "Concern",
-    title: "Redness & sensitivity",
-    body: "Treatments soothe and strengthen skin's resilience without harsh irritation.",
-  },
-];
+const concerns = concernOrder.map((slug) => ({
+  label: "Concern",
+  title: concernContent[slug].title,
+  body: concernContent[slug].tagline,
+  href: `/skin-profile/concerns/${slug}`,
+}));
 
 export default function SkinProfilePage() {
   return (
@@ -78,6 +39,16 @@ export default function SkinProfilePage() {
             AM/PM routine is built from.
           </p>
         </div>
+        <div className={`container ${detailStyles.heroImageWrap}`}>
+          <Image
+            src="/images/skin-profile-hero.jpg"
+            alt="Skincare cream styled with laboratory glassware on a pink background."
+            fill
+            sizes="(min-width: 700px) 1180px, 100vw"
+            className={detailStyles.heroImg}
+            priority
+          />
+        </div>
       </section>
 
       <FadeIn className={styles.section}>
@@ -91,9 +62,13 @@ export default function SkinProfilePage() {
               <li key={item.title} className={styles.profileRow}>
                 <div className={styles.profileHead}>
                   <span className={styles.profileLabel}>{item.label}</span>
-                  <h3 className={styles.profileTitle}>{item.title}</h3>
+                  <h3 className={styles.profileTitle}>
+                    <Link href={item.href}>{item.title}</Link>
+                  </h3>
                 </div>
-                <p className={styles.profileBody}>{item.body}</p>
+                <p className={styles.profileBody}>
+                  {item.body} <Link href={item.href}>Learn more →</Link>
+                </p>
               </li>
             ))}
           </ol>
@@ -111,9 +86,13 @@ export default function SkinProfilePage() {
               <li key={item.title} className={styles.profileRow}>
                 <div className={styles.profileHead}>
                   <span className={styles.profileLabel}>{item.label}</span>
-                  <h3 className={styles.profileTitle}>{item.title}</h3>
+                  <h3 className={styles.profileTitle}>
+                    <Link href={item.href}>{item.title}</Link>
+                  </h3>
                 </div>
-                <p className={styles.profileBody}>{item.body}</p>
+                <p className={styles.profileBody}>
+                  {item.body} <Link href={item.href}>Learn more →</Link>
+                </p>
               </li>
             ))}
           </ol>
