@@ -4,8 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import SearchBar from "./SearchBar";
-import AccountMenu from "./AccountMenu";
-import { signInWithGoogle, signOut } from "@/lib/auth-actions";
+import { MobileMenuContext } from "./MobileMenuContext";
 import styles from "./Header.module.css";
 
 const navLinks = [
@@ -17,22 +16,13 @@ const navLinks = [
 ];
 
 interface HeaderProps {
-  isSignedIn: boolean;
-  isAdmin: boolean;
-  firstName: string | null;
-  username: string | null;
-  avatarUrl: string | null;
+  authDesktop: React.ReactNode;
+  authMobile: React.ReactNode;
 }
 
-export default function Header({
-  isSignedIn,
-  isAdmin,
-  firstName,
-  username,
-  avatarUrl,
-}: HeaderProps) {
+export default function Header({ authDesktop, authMobile }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const signIn = signInWithGoogle.bind(null, "/");
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <header className={styles.header}>
@@ -72,22 +62,7 @@ export default function Header({
 
           <ThemeToggle />
 
-          {isSignedIn ? (
-            <div className={styles.authDesktop}>
-              <AccountMenu
-                isAdmin={isAdmin}
-                firstName={firstName}
-                username={username}
-                avatarUrl={avatarUrl}
-              />
-            </div>
-          ) : (
-            <form action={signIn} className={styles.authDesktop}>
-              <button type="submit" className={styles.authLink}>
-                Log in
-              </button>
-            </form>
-          )}
+          {authDesktop}
 
           <button
             type="button"
@@ -127,54 +102,7 @@ export default function Header({
             Start Quiz
           </Link>
 
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className={styles.mobileNavLink}
-              onClick={() => setMenuOpen(false)}
-            >
-              Admin dashboard
-            </Link>
-          )}
-
-          {isSignedIn ? (
-            <>
-              {username && (
-                <Link
-                  href={`/u/${username}`}
-                  className={styles.mobileNavLink}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  View profile
-                </Link>
-              )}
-              <Link
-                href="/my-routine"
-                className={styles.mobileNavLink}
-                onClick={() => setMenuOpen(false)}
-              >
-                My routine
-              </Link>
-              <Link
-                href="/settings"
-                className={styles.mobileNavLink}
-                onClick={() => setMenuOpen(false)}
-              >
-                Settings
-              </Link>
-              <form action={signOut}>
-                <button type="submit" className={`${styles.mobileNavLink} ${styles.mobileNavButton}`}>
-                  Log out
-                </button>
-              </form>
-            </>
-          ) : (
-            <form action={signIn}>
-              <button type="submit" className={`${styles.mobileNavLink} ${styles.mobileNavButton}`}>
-                Log in
-              </button>
-            </form>
-          )}
+          <MobileMenuContext value={closeMenu}>{authMobile}</MobileMenuContext>
         </nav>
       </div>
     </header>
