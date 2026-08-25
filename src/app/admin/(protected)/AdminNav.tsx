@@ -31,11 +31,16 @@ export default function AdminNav() {
         ))}
       </nav>
 
-      <form action={signOut}>
-        <button type="submit" className={styles.logoutBtn}>
-          Log out
-        </button>
-      </form>
+      <div className={styles.nav}>
+        <Link href="/" className={styles.navLink}>
+          View site
+        </Link>
+        <form action={signOut}>
+          <button type="submit" className={styles.logoutBtn}>
+            Log out
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
