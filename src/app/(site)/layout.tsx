@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeaderAuthDesktop from "@/components/HeaderAuthDesktop";
 import HeaderAuthMobile from "@/components/HeaderAuthMobile";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function SiteLayout({
   children,
@@ -25,6 +26,7 @@ export default function SiteLayout({
       />
       <main id="main-content">{children}</main>
       <Footer />
+      <ChatWidget />
     </>
   );
 }
