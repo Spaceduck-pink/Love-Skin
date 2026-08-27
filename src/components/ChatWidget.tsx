@@ -13,18 +13,49 @@ const WELCOME: ChatMessage = {
   text: "Hi! I'm your LoveSkin assistant. Ask me anything about skincare routines, ingredients, or products — like how to start retinol, or what order to layer your products in.",
 };
 
+const STORAGE_KEY = "loveskin-chat-history";
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    if (typeof window === "undefined") return [WELCOME];
+    try {
+      const saved = window.localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved) as ChatMessage[];
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {
+      // localStorage unavailable — fall back to the in-memory welcome message
+    }
+    return [WELCOME];
+  });
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+    } catch {
+      // storage full or unavailable — chat still works, just won't persist
+    }
+  }, [messages]);
 
   useEffect(() => {
     if (listRef.current) {
       listRef.current.scrollTop = listRef.current.scrollHeight;
     }
   }, [messages, open]);
+
+  function clearHistory() {
+    setMessages([WELCOME]);
+    try {
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // ignore
+    }
+  }
 
   async function sendMessage(e: React.FormEvent) {
     e.preventDefault();
@@ -81,14 +112,24 @@ export default function ChatWidget() {
         <div className={styles.panel} role="dialog" aria-label="Skincare assistant chat">
           <div className={styles.header}>
             <span>LoveSkin Assistant</span>
-            <button
-              type="button"
-              className={styles.closeButton}
-              onClick={() => setOpen(false)}
-              aria-label="Close chat"
-            >
-              ✕
-            </button>
+            <div className={styles.headerActions}>
+              <button
+                type="button"
+                className={styles.clearButton}
+                onClick={clearHistory}
+                aria-label="Clear chat history"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                className={styles.closeButton}
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+              >
+                ✕
+              </button>
+            </div>
           </div>
 
           <div className={styles.messages} ref={listRef}>
