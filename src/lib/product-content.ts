@@ -19,13 +19,20 @@ export const skinTypeDrivenProducts = [
   "spf",
 ];
 
-export const concernDrivenProducts = ["serums-treatments", "eye-creams"];
+export const concernDrivenProducts = [
+  "essences",
+  "serums-treatments",
+  "spot-treatments",
+  "eye-creams",
+];
 
 export const productTitles: Record<string, string> = {
   cleansers: "Cleansers",
   "oil-cleansers": "Oil cleansers",
   toners: "Toners",
+  essences: "Essences",
   "serums-treatments": "Serums & treatments",
+  "spot-treatments": "Spot treatments",
   "eye-creams": "Eye creams",
   moisturizers: "Moisturizers",
   "facial-oils": "Facial oils",
@@ -36,7 +43,9 @@ export const productImageAlt: Record<string, string> = {
   cleansers: "A cleanser bottle styled with laboratory glassware on a pink background.",
   "oil-cleansers": "Two glass bottles of cleansing oil on a clean white surface.",
   toners: "A toner bottle resting on cotton pads with aloe vera leaves.",
+  essences: "A toner bottle resting on cotton pads with aloe vera leaves.",
   "serums-treatments": "A serum bottle with dropper casting a soft shadow.",
+  "spot-treatments": "A serum bottle with dropper casting a soft shadow.",
   "eye-creams": "An eye cream jar styled with pearls and leaves.",
   moisturizers: "Hands applying moisturizer from a pink jar.",
   "facial-oils": "An amber glass dropper bottle of facial oil on soft fabric.",
@@ -105,6 +114,27 @@ export const productContent: Record<string, ProductContent> = {
       },
     ],
   },
+  essences: {
+    howToUse:
+      "Apply after toner and before serums, patting a few drops into skin morning and/or night — it absorbs quickly and doesn't need to be rubbed in.",
+    skinTypeNotes:
+      "Most worth adding for dullness, where a hydrating essence boosts glow, or aging, where a firming essence supports elasticity. It's optional for other concerns — skip it if your routine already feels complete after toner.",
+    mistakes: [
+      "Treating it as a required step for every routine",
+      "Applying too much — a few drops is enough, unlike a moisturizer",
+      "Using it in place of a toner instead of layering it after one",
+    ],
+    faqs: [
+      {
+        q: "Is an essence the same as a toner?",
+        a: "No — toner preps skin and removes residue, while an essence adds an extra layer of hydration or active ingredients on top.",
+      },
+      {
+        q: "Do I need an essence in my routine?",
+        a: "It's optional. It's most worth adding if you want extra hydration or a boost tailored to a concern like dullness or aging.",
+      },
+    ],
+  },
   "serums-treatments": {
     howToUse:
       "Apply after toner and before moisturizer. Antioxidant serums like vitamin C work best in the morning; actives like retinol or AHA/BHA belong in the evening, usually starting 2–3 nights a week.",
@@ -123,6 +153,27 @@ export const productContent: Record<string, ProductContent> = {
       {
         q: "How fast do serums work?",
         a: "Most active ingredients take 4–8 weeks of consistent use before showing visible results.",
+      },
+    ],
+  },
+  "spot-treatments": {
+    howToUse:
+      "Apply a small amount directly onto the area of concern after your serum or treatment step, letting it absorb before moisturizer.",
+    skinTypeNotes:
+      "Most useful for acne, where a benzoyl peroxide or sulfur spot treatment targets active breakouts, and for dark spots, where a concentrated brightening gel speeds up fading. Not needed if you don't have an isolated problem area.",
+    mistakes: [
+      "Applying it all over the face instead of just the affected spot",
+      "Layering it with other strong actives on the same area, which can cause irritation",
+      "Expecting overnight results — most spot treatments need consistent use over days to weeks",
+    ],
+    faqs: [
+      {
+        q: "Can I use a spot treatment every day?",
+        a: "Yes, but only on the specific area — daily all-over use of strong actives can irritate skin.",
+      },
+      {
+        q: "Do I still need my regular serum if I use a spot treatment?",
+        a: "Yes — a spot treatment targets one area; your regular serum or treatment still addresses your whole face.",
       },
     ],
   },

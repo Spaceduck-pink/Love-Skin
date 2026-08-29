@@ -49,12 +49,14 @@ insert into public.skincare_products (step, slug, title, description) values
   (1, 'cleansers', 'Cleansers', 'Wash away dirt, oil, and sunscreen without stripping your skin. The first step in every routine, morning and night.'),
   (2, 'oil-cleansers', 'Oil cleansers', 'A first-cleanse step that melts away sunscreen and makeup before your regular cleanser goes to work.'),
   (3, 'toners', 'Toners', 'A light, alcohol-free liquid that removes residue and preps skin to absorb the treatments that follow.'),
-  (4, 'serums-treatments', 'Serums & treatments', 'Concentrated formulas — vitamin C, retinol, niacinamide, and more — targeted at specific concerns like acne, dullness, or aging.'),
-  (5, 'eye-creams', 'Eye creams', 'Lightweight, targeted hydration for the delicate skin around the eyes.'),
-  (6, 'moisturizers', 'Moisturizers', 'Lock in hydration and support your skin barrier. Formulated lighter for oily skin, richer for dry skin.'),
-  (7, 'facial-oils', 'Facial oils', 'An optional finishing layer that seals in moisturizer and softens skin overnight.'),
-  (8, 'spf', 'SPF', 'Broad-spectrum sun protection — the single most impactful step for keeping your skin healthy long-term.')
-on conflict (slug) do nothing;
+  (4, 'essences', 'Essences', 'A watery, lightweight layer applied after toner that adds a boost of hydration and preps skin to absorb serums more effectively.'),
+  (5, 'serums-treatments', 'Serums & treatments', 'Concentrated formulas — vitamin C, retinol, niacinamide, and more — targeted at specific concerns like acne, dullness, or aging.'),
+  (6, 'spot-treatments', 'Spot treatments', 'A targeted, concentrated formula applied directly to a specific problem area — like an active breakout or a stubborn dark spot — rather than all over the face.'),
+  (7, 'eye-creams', 'Eye creams', 'Lightweight, targeted hydration for the delicate skin around the eyes.'),
+  (8, 'moisturizers', 'Moisturizers', 'Lock in hydration and support your skin barrier. Formulated lighter for oily skin, richer for dry skin.'),
+  (9, 'facial-oils', 'Facial oils', 'An optional finishing layer that seals in moisturizer and softens skin overnight.'),
+  (10, 'spf', 'SPF', 'Broad-spectrum sun protection — the single most impactful step for keeping your skin healthy long-term.')
+on conflict (slug) do update set step = excluded.step, title = excluded.title, description = excluded.description;
 
 -- Newsletter signups from the form on every page.
 create table if not exists public.subscribers (
