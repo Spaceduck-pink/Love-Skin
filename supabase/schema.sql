@@ -275,3 +275,23 @@ create policy "Users can update their own skin profile"
   to authenticated
   using (user_id = auth.uid())
   with check (user_id = auth.uid());
+
+-- Append-only log of requests to rate-limited API routes (chat,
+-- generate-routine). checkRateLimit() in src/lib/rate-limit.ts counts rows
+-- for a given (route, identifier) within a sliding window rather than
+-- maintaining a fixed-window counter — traffic here is low enough that
+-- simplicity matters more than query efficiency.
+create table if not exists public.rate_limit_events (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  route text not null,
+  identifier text not null
+);
+
+alter table public.rate_limit_events enable row level security;
+
+-- No anon/authenticated policies on purpose: only supabaseAdmin (service
+-- role, bypasses RLS) reads or writes this table, from checkRateLimit().
+
+create index if not exists rate_limit_events_route_identifier_created_at_idx
+  on public.rate_limit_events (route, identifier, created_at desc);

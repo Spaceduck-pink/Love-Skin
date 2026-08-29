@@ -1,5 +1,11 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { generateRoutine } from "@/lib/generate-routine";
+import {
+  checkRateLimit,
+  getIdentifier,
+  GENERATE_ROUTINE_LIMIT,
+  GENERATE_ROUTINE_WINDOW_MS,
+} from "@/lib/rate-limit";
 import type { QuizAnswers, RoutineResult } from "@/lib/types";
 
 const MODEL = "gemini-3.6-flash";
@@ -106,6 +112,17 @@ export async function POST(request: Request) {
   const answers = (body as { answers?: unknown })?.answers;
   if (!isValidAnswers(answers)) {
     return Response.json({ error: "Invalid quiz answers." }, { status: 400 });
+  }
+
+  const identifier = getIdentifier(request);
+  const rateLimit = await checkRateLimit(
+    "generate-routine",
+    identifier,
+    GENERATE_ROUTINE_LIMIT,
+    GENERATE_ROUTINE_WINDOW_MS,
+  );
+  if (!rateLimit.allowed) {
+    return Response.json({ routine: generateRoutine(answers), source: "fallback" });
   }
 
   const apiKey = process.env.GEMINI_API_KEY;

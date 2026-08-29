@@ -1,4 +1,12 @@
 import { GoogleGenAI } from "@google/genai";
+import {
+  checkRateLimit,
+  getIdentifier,
+  CHAT_LIMIT,
+  CHAT_WINDOW_MS,
+  CHAT_BURST_LIMIT,
+  CHAT_BURST_WINDOW_MS,
+} from "@/lib/rate-limit";
 
 const SYSTEM_INSTRUCTION = `You are the LoveSkin Skincare Assistant, a friendly expert on skincare
 routines and skincare products. You help people understand:
@@ -63,6 +71,24 @@ export async function POST(request: Request) {
   );
   if (!isValid) {
     return Response.json({ error: "Invalid message format." }, { status: 400 });
+  }
+
+  const identifier = getIdentifier(request);
+
+  const burst = await checkRateLimit("chat:burst", identifier, CHAT_BURST_LIMIT, CHAT_BURST_WINDOW_MS);
+  if (!burst.allowed) {
+    return Response.json(
+      { error: "You're sending messages a bit fast — give it a few seconds and try again." },
+      { status: 429 },
+    );
+  }
+
+  const hourly = await checkRateLimit("chat:hourly", identifier, CHAT_LIMIT, CHAT_WINDOW_MS);
+  if (!hourly.allowed) {
+    return Response.json(
+      { error: "You've reached the chat limit for now. Please try again in a bit." },
+      { status: 429 },
+    );
   }
 
   const recent = (messages as ChatMessage[]).slice(-MAX_HISTORY);
