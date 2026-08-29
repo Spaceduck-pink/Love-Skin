@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { quizQuestions } from "@/lib/quiz-data";
 import { generateRoutine } from "@/lib/generate-routine";
 import { saveSkinProfile } from "@/lib/actions";
-import type { QuestionId, QuizAnswers } from "@/lib/types";
+import type { QuestionId, QuizAnswers, RoutineResult } from "@/lib/types";
 import ProgressBar from "@/components/quiz/ProgressBar";
 import QuestionStep from "@/components/quiz/QuestionStep";
 import ResultsView from "@/components/quiz/ResultsView";
+import LoadingRoutine from "@/components/quiz/LoadingRoutine";
 import styles from "./quiz.module.css";
 
 type PartialAnswers = Partial<Record<QuestionId, string>>;
@@ -22,7 +23,8 @@ function isCompleteAnswers(answers: PartialAnswers): answers is Record<QuestionI
 export default function QuizPage() {
   const [stepIndex, setStepIndex] = useState(0);
   const [answers, setAnswers] = useState<PartialAnswers>({});
-  const [showResults, setShowResults] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [routine, setRoutine] = useState<RoutineResult | null>(null);
   const [savedToProfile, setSavedToProfile] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
@@ -31,36 +33,53 @@ export default function QuizPage() {
   const currentAnswer = currentQuestion ? answers[currentQuestion.id] : undefined;
 
   useEffect(() => {
-    if (!showResults) {
+    if (!isGenerating && !routine) {
       headingRef.current?.focus();
     }
-  }, [stepIndex, showResults]);
-
-  const routine = useMemo(() => {
-    if (!showResults || !isCompleteAnswers(answers)) return null;
-    return generateRoutine(answers as unknown as QuizAnswers);
-  }, [showResults, answers]);
-
-  useEffect(() => {
-    if (!routine || !isCompleteAnswers(answers)) return;
-    saveSkinProfile(answers as unknown as QuizAnswers, routine)
-      .then(({ savedToProfile }) => setSavedToProfile(savedToProfile))
-      .catch((error) => {
-        console.error("Failed to save skin profile:", error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [routine]);
+  }, [stepIndex, isGenerating, routine]);
 
   const handleSelect = (value: string) => {
     setAnswers((prev) => ({ ...prev, [currentQuestion.id]: value }));
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!currentAnswer) return;
-    if (isLastStep) {
-      setShowResults(true);
-    } else {
+    if (!isLastStep) {
       setStepIndex((index) => index + 1);
+      return;
+    }
+    if (!isCompleteAnswers(answers)) return;
+
+    const finalAnswers = answers as unknown as QuizAnswers;
+    setIsGenerating(true);
+    try {
+      let generatedRoutine: RoutineResult;
+      try {
+        const response = await fetch("/api/generate-routine", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ answers: finalAnswers }),
+        });
+        if (!response.ok) throw new Error(`generate-routine failed: ${response.status}`);
+        const data = await response.json();
+        if (!data.routine) throw new Error("generate-routine returned no routine");
+        generatedRoutine = data.routine as RoutineResult;
+      } catch (error) {
+        console.error("Falling back to local routine generation:", error);
+        generatedRoutine = generateRoutine(finalAnswers);
+      }
+
+      const { savedToProfile } = await saveSkinProfile(finalAnswers, generatedRoutine).catch(
+        (error) => {
+          console.error("Failed to save skin profile:", error);
+          return { savedToProfile: false };
+        },
+      );
+
+      setSavedToProfile(savedToProfile);
+      setRoutine(generatedRoutine);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -71,14 +90,24 @@ export default function QuizPage() {
   const handleRetake = () => {
     setAnswers({});
     setStepIndex(0);
-    setShowResults(false);
+    setRoutine(null);
     setSavedToProfile(false);
   };
 
-  if (showResults && routine) {
+  if (routine) {
     return (
       <div className="container">
         <ResultsView routine={routine} onRetake={handleRetake} savedToProfile={savedToProfile} />
+      </div>
+    );
+  }
+
+  if (isGenerating) {
+    return (
+      <div className={`container ${styles.page}`}>
+        <div className={styles.card}>
+          <LoadingRoutine />
+        </div>
       </div>
     );
   }
