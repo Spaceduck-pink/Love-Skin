@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 async function getUsers() {
   const { data: profiles, error: profilesError } = await supabaseAdmin
     .from("profiles")
-    .select("id, first_name, last_name, role, created_at")
+    .select("id, first_name, last_name, role, plan, created_at")
     .order("created_at", { ascending: false });
 
   if (profilesError) {
@@ -68,6 +68,7 @@ export default async function AdminUsersPage() {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Plan</th>
                 <th>Joined</th>
                 <th>Actions</th>
               </tr>

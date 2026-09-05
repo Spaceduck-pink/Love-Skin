@@ -10,6 +10,7 @@ interface UserProfile {
   last_name: string | null;
   email: string;
   role: string;
+  plan: string;
   created_at: string;
 }
 
@@ -66,6 +67,7 @@ export default function UserRow({ user, isSelf }: { user: UserProfile; isSelf: b
           </select>
           {state.error && <p className={styles.error}>{state.error}</p>}
         </td>
+        <td style={{ textTransform: "capitalize" }}>{user.plan}</td>
         <td className={styles.muted}>{formattedDate}</td>
         <td>
           <form id={formId} action={formAction} className={styles.actions}>
@@ -94,6 +96,7 @@ export default function UserRow({ user, isSelf }: { user: UserProfile; isSelf: b
       </td>
       <td>{user.email}</td>
       <td style={{ textTransform: "capitalize" }}>{user.role}</td>
+      <td style={{ textTransform: "capitalize" }}>{user.plan}</td>
       <td className={styles.muted}>{formattedDate}</td>
       <td>
         <div className={styles.actions}>
