@@ -295,3 +295,10 @@ alter table public.rate_limit_events enable row level security;
 
 create index if not exists rate_limit_events_route_identifier_created_at_idx
   on public.rate_limit_events (route, identifier, created_at desc);
+
+-- Billing tier, separate from `role` (which is about admin permissions, not
+-- what a user has paid for). Defaults everyone to 'free'; the only write
+-- path is the self-serve toggle in src/lib/plan-actions.ts (no payment yet).
+alter table public.profiles add column if not exists plan text not null default 'free';
+alter table public.profiles drop constraint if exists profiles_plan_check;
+alter table public.profiles add constraint profiles_plan_check check (plan in ('free', 'pro'));

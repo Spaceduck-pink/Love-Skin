@@ -2,11 +2,13 @@ import { GoogleGenAI } from "@google/genai";
 import {
   checkRateLimit,
   getIdentifier,
-  CHAT_LIMIT,
-  CHAT_WINDOW_MS,
   CHAT_BURST_LIMIT,
   CHAT_BURST_WINDOW_MS,
+  CHAT_DAILY_LIMIT_FREE,
+  CHAT_DAILY_LIMIT_PRO,
+  CHAT_DAILY_WINDOW_MS,
 } from "@/lib/rate-limit";
+import { createClient } from "@/lib/supabase-server";
 
 const SYSTEM_INSTRUCTION = `You are the LoveSkin Skincare Assistant, a friendly expert on skincare
 routines and skincare products. You help people understand:
@@ -73,7 +75,25 @@ export async function POST(request: Request) {
     return Response.json({ error: "Invalid message format." }, { status: 400 });
   }
 
-  const identifier = getIdentifier(request);
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let identifier: string;
+  let plan: "free" | "pro" = "free";
+
+  if (user) {
+    identifier = `user:${user.id}`;
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("plan")
+      .eq("id", user.id)
+      .single();
+    plan = profile?.plan === "pro" ? "pro" : "free";
+  } else {
+    identifier = getIdentifier(request);
+  }
 
   const burst = await checkRateLimit("chat:burst", identifier, CHAT_BURST_LIMIT, CHAT_BURST_WINDOW_MS);
   if (!burst.allowed) {
@@ -83,10 +103,16 @@ export async function POST(request: Request) {
     );
   }
 
-  const hourly = await checkRateLimit("chat:hourly", identifier, CHAT_LIMIT, CHAT_WINDOW_MS);
-  if (!hourly.allowed) {
+  const dailyLimit = plan === "pro" ? CHAT_DAILY_LIMIT_PRO : CHAT_DAILY_LIMIT_FREE;
+  const daily = await checkRateLimit("chat:daily", identifier, dailyLimit, CHAT_DAILY_WINDOW_MS);
+  if (!daily.allowed) {
     return Response.json(
-      { error: "You've reached the chat limit for now. Please try again in a bit." },
+      {
+        error:
+          plan === "pro"
+            ? "You've reached today's chat limit. Please try again tomorrow."
+            : "Free plan is limited to 1 chat message a day — upgrade to Pro for more. Try again tomorrow.",
+      },
       { status: 429 },
     );
   }

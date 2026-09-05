@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/#how-it-works", label: "How it works" },
   { href: "/skin-profile", label: "Skin Profile" },
   { href: "/products", label: "Products" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/#about", label: "About" },
   { href: "/#newsletter", label: "Newsletter" },
 ];

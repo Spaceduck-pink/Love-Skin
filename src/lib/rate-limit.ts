@@ -58,10 +58,12 @@ export async function checkRateLimit(
   return { allowed: true };
 }
 
-export const CHAT_LIMIT = 30; // messages per hour per identifier
-export const CHAT_WINDOW_MS = 60 * 60 * 1000;
 export const CHAT_BURST_LIMIT = 6; // messages per minute per identifier
 export const CHAT_BURST_WINDOW_MS = 60 * 1000;
+
+export const CHAT_DAILY_LIMIT_FREE = 1; // messages per day for free-plan/anonymous identifiers
+export const CHAT_DAILY_LIMIT_PRO = 10; // messages per day for pro-plan identifiers
+export const CHAT_DAILY_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 export const GENERATE_ROUTINE_LIMIT = 10; // Gemini routine generations per hour per identifier
 export const GENERATE_ROUTINE_WINDOW_MS = 60 * 60 * 1000;
