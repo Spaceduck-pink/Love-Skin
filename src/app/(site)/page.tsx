@@ -134,6 +134,22 @@ export default function Home() {
         </div>
       </FadeIn>
 
+      <FadeIn id="guide" className={styles.ctaBanner}>
+        <div className={`container ${styles.ctaInner}`}>
+          <span className="mono-tag">Digital guide</span>
+          <h2>The LoveSkin Guide, in one PDF</h2>
+          <p>
+            Skin types, routine order, and how to introduce actives without
+            irritation — a short reference you can keep coming back to.
+          </p>
+          <form action="/api/checkout" method="POST">
+            <button type="submit" className="btn btn-primary">
+              Buy for £1
+            </button>
+          </form>
+        </div>
+      </FadeIn>
+
       <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to meet your skin?</h2>
