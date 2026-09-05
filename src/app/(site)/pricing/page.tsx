@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import { createClient } from "@/lib/supabase-server";
 import { signInWithGoogle } from "@/lib/auth-actions";
-import { setPlan } from "@/lib/plan-actions";
+import { PRO_PRICE_GBP_PENCE, PRO_PRICE_INTERVAL } from "@/lib/pro-product";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -31,8 +31,7 @@ async function getCurrentPlan(): Promise<"free" | "pro" | null> {
 export default async function PricingPage() {
   const currentPlan = await getCurrentPlan();
   const signIn = signInWithGoogle.bind(null, "/pricing");
-  const becomePro = setPlan.bind(null, "pro");
-  const becomeFree = setPlan.bind(null, "free");
+  const proPrice = (PRO_PRICE_GBP_PENCE / 100).toFixed(2);
 
   return (
     <>
@@ -59,31 +58,30 @@ export default async function PricingPage() {
               <li>Full skin quiz &amp; personalised routine</li>
               <li>Browse all product guides</li>
             </ul>
-            {currentPlan === "pro" ? (
-              <form action={becomeFree}>
-                <button type="submit" className="btn btn-ghost">
-                  Switch back to Free
-                </button>
-              </form>
-            ) : currentPlan === "free" ? (
-              <p className={styles.currentPlan}>Your current plan</p>
-            ) : null}
+            {currentPlan === "free" && <p className={styles.currentPlan}>Your current plan</p>}
           </div>
 
           <div className={`${styles.card} ${styles.cardPro}`}>
             <span className="mono-tag">Pro</span>
             <p className={styles.price}>
-              £4.99<span className={styles.pricePeriod}> / month</span>
+              £{proPrice}
+              <span className={styles.pricePeriod}> / {PRO_PRICE_INTERVAL}</span>
             </p>
-            <p className={styles.priceNote}>Illustrative price — billing coming soon.</p>
             <ul className={styles.features}>
               <li>10 expert chat messages a day</li>
               <li>Everything in Free</li>
             </ul>
             {currentPlan === "pro" ? (
-              <p className={styles.currentPlan}>Your current plan</p>
+              <>
+                <p className={styles.currentPlan}>Your current plan</p>
+                <form action="/api/billing-portal" method="POST">
+                  <button type="submit" className="btn btn-ghost">
+                    Manage billing
+                  </button>
+                </form>
+              </>
             ) : currentPlan === "free" ? (
-              <form action={becomePro}>
+              <form action="/api/checkout/pro" method="POST">
                 <button type="submit" className="btn btn-primary">
                   Become Pro
                 </button>

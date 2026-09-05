@@ -54,11 +54,6 @@
   color: var(--color-text-muted);
 }
 
-.priceNote {
-  font-size: 0.85rem;
-  margin-top: -0.6rem;
-}
-
 .features {
   display: grid;
   gap: 0.6rem;

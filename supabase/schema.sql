@@ -302,3 +302,12 @@ create index if not exists rate_limit_events_route_identifier_created_at_idx
 alter table public.profiles add column if not exists plan text not null default 'free';
 alter table public.profiles drop constraint if exists profiles_plan_check;
 alter table public.profiles add constraint profiles_plan_check check (plan in ('free', 'pro'));
+
+-- Links a profile to its Stripe Customer/Subscription so the webhook in
+-- src/app/api/webhooks/stripe/route.ts can find the right profile to update,
+-- and so /api/billing-portal can open that customer's Stripe billing portal.
+alter table public.profiles add column if not exists stripe_customer_id text;
+alter table public.profiles add column if not exists stripe_subscription_id text;
+create unique index if not exists profiles_stripe_customer_id_idx
+  on public.profiles (stripe_customer_id)
+  where stripe_customer_id is not null;
