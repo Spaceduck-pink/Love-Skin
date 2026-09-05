@@ -111,6 +111,25 @@
   }
 }
 
+.guideAction {
+  display: grid;
+  gap: 0.6rem;
+  justify-items: start;
+}
+
+.guideLegalNote {
+  font-size: 0.78rem;
+}
+
+.guideLegalNote a {
+  color: var(--color-brand-dim);
+  text-decoration: underline;
+}
+
+.guideLegalNote a:hover {
+  color: var(--color-brand);
+}
+
 .ctaBanner {
   padding-block: 1rem 5rem;
 }

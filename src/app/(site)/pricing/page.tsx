@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
 import { createClient } from "@/lib/supabase-server";
 import { signInWithGoogle } from "@/lib/auth-actions";
@@ -81,11 +82,18 @@ export default async function PricingPage() {
                 </form>
               </>
             ) : currentPlan === "free" ? (
-              <form action="/api/checkout/pro" method="POST">
-                <button type="submit" className="btn btn-primary">
-                  Become Pro
-                </button>
-              </form>
+              <>
+                <form action="/api/checkout/pro" method="POST">
+                  <button type="submit" className="btn btn-primary">
+                    Become Pro
+                  </button>
+                </form>
+                <p className={styles.legalNote}>
+                  By subscribing, you agree to our <Link href="/terms">Terms</Link>{" "}
+                  and{" "}
+                  <Link href="/refund-policy">Refund Policy</Link>.
+                </p>
+              </>
             ) : (
               <form action={signIn}>
                 <button type="submit" className="btn btn-primary">

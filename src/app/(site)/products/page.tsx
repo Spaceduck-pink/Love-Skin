@@ -84,11 +84,17 @@ export default async function ProductsPage() {
               phone or print out and pin by the mirror.
             </p>
           </div>
-          <form action="/api/checkout" method="POST">
-            <button type="submit" className="btn btn-primary">
-              Buy for £1
-            </button>
-          </form>
+          <div className={styles.guideAction}>
+            <form action="/api/checkout" method="POST">
+              <button type="submit" className="btn btn-primary">
+                Buy for £1
+              </button>
+            </form>
+            <p className={styles.guideLegalNote}>
+              By purchasing, you agree to our <Link href="/terms">Terms</Link> and{" "}
+              <Link href="/refund-policy">Refund Policy</Link>.
+            </p>
+          </div>
         </div>
       </FadeIn>
 

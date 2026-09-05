@@ -44,6 +44,18 @@ export default function Footer() {
             Take the Quiz
           </Link>
         </nav>
+        <nav aria-label="Legal" className={styles.legalLinks}>
+          <Link href="/terms" className={styles.legalLink}>
+            Terms &amp; Conditions
+          </Link>
+          <Link href="/privacy" className={styles.legalLink}>
+            Privacy Policy
+          </Link>
+          <Link href="/refund-policy" className={styles.legalLink}>
+            Refund Policy
+          </Link>
+        </nav>
+
         <p className={styles.copyright}>
           © {new Date().getFullYear()} LoveSkin. Built with Next.js.
         </p>

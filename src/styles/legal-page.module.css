@@ -1,0 +1,75 @@
+.hero {
+  padding-block: 3rem 1rem;
+}
+
+.heroInner {
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  line-height: 1.1;
+}
+
+.updated {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.section {
+  padding-block: 1rem 5rem;
+}
+
+.content {
+  max-width: 720px;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.content h2 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.content h2:first-child {
+  margin-top: 0;
+}
+
+.content p {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.content ul {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.content li {
+  position: relative;
+  padding-left: 1.4rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.content li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-brand-dim);
+}
+
+.content a {
+  color: var(--color-brand-dim);
+  text-decoration: underline;
+}
+
+.content a:hover {
+  color: var(--color-brand);
+}

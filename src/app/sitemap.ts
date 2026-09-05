@@ -12,6 +12,10 @@ const staticRoutes: Array<{
   { path: "/quiz", changeFrequency: "monthly", priority: 0.9 },
   { path: "/skin-profile", changeFrequency: "monthly", priority: 0.8 },
   { path: "/products", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/pricing", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/refund-policy", changeFrequency: "yearly", priority: 0.3 },
 ];
 
 async function getProductUrls(): Promise<MetadataRoute.Sitemap> {
