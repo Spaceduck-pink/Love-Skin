@@ -74,6 +74,24 @@ export default async function ProductsPage() {
         </div>
       </FadeIn>
 
+      <FadeIn className={styles.guideBanner}>
+        <div className={`container ${styles.guideInner}`}>
+          <div>
+            <span className="mono-tag">Digital guide</span>
+            <h2 className={styles.guideTitle}>Take this guide with you</h2>
+            <p className={styles.guideBody}>
+              Every product type and skin type in one place — a 21-page PDF you can keep on your
+              phone or print out and pin by the mirror.
+            </p>
+          </div>
+          <form action="/api/checkout" method="POST">
+            <button type="submit" className="btn btn-primary">
+              Buy for £1
+            </button>
+          </form>
+        </div>
+      </FadeIn>
+
       <FadeIn className={styles.ctaBanner}>
         <div className={`container ${styles.ctaInner}`}>
           <h2>Ready to find your routine?</h2>
