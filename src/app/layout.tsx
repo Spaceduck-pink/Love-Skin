@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter, JetBrains_Mono, Lato } from "next/font/google";
 import Script from "next/script";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const playfairDisplay = Playfair_Display({
@@ -27,10 +28,31 @@ const lato = Lato({
   weight: ["400", "700"],
 });
 
+const title = "LoveSkin — Your Skin Routine, Generated";
+const description =
+  "Answer a few quick questions and LoveSkin generates a personalized AM/PM skincare routine for you. No sign-up, no database — just your routine.";
+
 export const metadata: Metadata = {
-  title: "LoveSkin — Your Skin Routine, Generated",
-  description:
-    "Answer a few quick questions and LoveSkin generates a personalized AM/PM skincare routine for you. No sign-up, no database — just your routine.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title,
+    description,
+    url: siteUrl,
+    siteName: "LoveSkin",
+    type: "website",
+    images: ["/hero-skincare.webp"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/hero-skincare.webp"],
+  },
 };
 
 export default function RootLayout({
