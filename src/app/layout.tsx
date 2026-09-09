@@ -45,13 +45,11 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: "LoveSkin",
     type: "website",
-    images: ["/hero-skincare.webp"],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
-    images: ["/hero-skincare.webp"],
   },
 };
 
