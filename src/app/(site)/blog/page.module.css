@@ -1,0 +1,90 @@
+.hero {
+  padding-block: 3rem 2rem;
+}
+
+.heroInner {
+  display: grid;
+  gap: 1rem;
+  max-width: 720px;
+}
+
+.heroTitle {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.heroSubtitle {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.section {
+  padding-block: 1rem 4rem;
+}
+
+.postList {
+  display: grid;
+}
+
+.postRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-block: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.postRow:first-child {
+  padding-top: 0;
+}
+
+.postRow:last-child {
+  border-bottom: none;
+}
+
+.postMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-lato-family);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-brand-dim);
+}
+
+.postMeta time {
+  color: var(--color-text-muted);
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.postTitle {
+  font-size: 1.3rem;
+}
+
+.postBody {
+  font-size: 1.02rem;
+  max-width: 65ch;
+}
+
+.ctaBanner {
+  padding-block: 1rem 5rem;
+}
+
+.ctaInner {
+  text-align: center;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 1.5rem;
+}
+
+.ctaInner h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}

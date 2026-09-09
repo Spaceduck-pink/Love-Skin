@@ -34,6 +34,9 @@ export default function Footer() {
           <Link href="/products" className={styles.link} prefetch={false}>
             Products
           </Link>
+          <Link href="/blog" className={styles.link} prefetch={false}>
+            Blog
+          </Link>
           <Link href="/#about" className={styles.link} prefetch={false}>
             About
           </Link>

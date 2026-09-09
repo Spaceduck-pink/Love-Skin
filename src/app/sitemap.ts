@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { siteUrl } from "@/lib/site";
 import { concernOrder, skinTypeOrder } from "@/lib/skin-profile-content";
+import { blogPosts } from "@/lib/blog-content";
 
 // Regenerate hourly so new products and public profiles show up without a
 // redeploy — Next.js otherwise treats this route as static.
@@ -16,6 +17,7 @@ const staticRoutes: Array<{
   { path: "/quiz", changeFrequency: "monthly", priority: 0.9 },
   { path: "/skin-profile", changeFrequency: "monthly", priority: 0.8 },
   { path: "/products", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/pricing", changeFrequency: "monthly", priority: 0.7 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.3 },
@@ -76,6 +78,15 @@ async function getProfileUrls(): Promise<MetadataRoute.Sitemap> {
   }));
 }
 
+function getBlogUrls(): MetadataRoute.Sitemap {
+  return blogPosts.map((post) => ({
+    url: `${siteUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt ?? post.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [profileUrls, productUrls] = await Promise.all([getProfileUrls(), getProductUrls()]);
 
@@ -87,6 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: route.priority,
     })),
     ...getSkinProfileDetailUrls(),
+    ...getBlogUrls(),
     ...productUrls,
     ...profileUrls,
   ];

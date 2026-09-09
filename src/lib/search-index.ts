@@ -1,8 +1,16 @@
+import { blogPosts } from "./blog-content";
+
 export interface SearchItem {
   title: string;
   description: string;
   href: string;
 }
+
+const blogItems: SearchItem[] = blogPosts.map((post) => ({
+  title: post.title,
+  description: post.description,
+  href: `/blog/${post.slug}`,
+}));
 
 export const searchIndex: SearchItem[] = [
   {
@@ -25,6 +33,12 @@ export const searchIndex: SearchItem[] = [
     description: "A guide to skincare product types — cleansers, toners, serums, and more.",
     href: "/products",
   },
+  {
+    title: "Blog",
+    description: "Skincare guides on routine building, ingredients, and what to expect.",
+    href: "/blog",
+  },
+  ...blogItems,
   {
     title: "How it works",
     description: "Three steps to your personalized routine.",

@@ -38,6 +38,13 @@
   max-width: 65ch;
 }
 
+.heroDate {
+  display: block;
+  font-family: var(--font-lato-family);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
 .heroImageWrap {
   position: relative;
   width: 100%;
@@ -122,6 +129,10 @@
 
 .mistakeList li::before {
   background: var(--color-accent);
+}
+
+.inlineList {
+  margin-top: 1.25rem;
 }
 
 .twoCol {
