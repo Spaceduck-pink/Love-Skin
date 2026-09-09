@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
+import ShareButtons from "@/components/ShareButtons";
 import {
   concernContent,
   concernOrder,
@@ -103,6 +104,14 @@ export default async function SkinTypePage({
           />
         </div>
       </section>
+
+      <div className={`container ${styles.shareBar}`}>
+        <ShareButtons
+          url={`${siteUrl}/skin-profile/${content.slug}`}
+          title={`${content.title} skin`}
+          text={content.tagline}
+        />
+      </div>
 
       <FadeIn className={styles.section}>
         <div className="container">

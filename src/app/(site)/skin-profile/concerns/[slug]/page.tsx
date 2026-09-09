@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
+import ShareButtons from "@/components/ShareButtons";
 import {
   concernContent,
   concernImageAlt,
@@ -102,6 +103,14 @@ export default async function ConcernPage({
           />
         </div>
       </section>
+
+      <div className={`container ${styles.shareBar}`}>
+        <ShareButtons
+          url={`${siteUrl}/skin-profile/concerns/${content.slug}`}
+          title={content.title}
+          text={content.tagline}
+        />
+      </div>
 
       <FadeIn className={styles.section}>
         <div className="container">

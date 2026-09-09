@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
+import ShareButtons from "@/components/ShareButtons";
 import { supabase } from "@/lib/supabase";
 import {
   concernDrivenProducts,
@@ -135,6 +136,14 @@ export default async function ProductDetailPage({
           />
         </div>
       </section>
+
+      <div className={`container ${styles.shareBar}`}>
+        <ShareButtons
+          url={`${siteUrl}/products/${product.slug}`}
+          title={product.title}
+          text={product.description}
+        />
+      </div>
 
       {embedUrl && (
         <FadeIn className={styles.section}>

@@ -1,0 +1,49 @@
+.shareRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.label {
+  font-family: var(--font-lato-family);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  background: transparent;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.iconBtn svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.iconBtn:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand-dim);
+}
+
+.copiedToast {
+  font-size: 0.78rem;
+  color: var(--color-brand-dim);
+}
