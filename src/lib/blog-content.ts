@@ -36,6 +36,54 @@ export interface BlogPost {
 // "More from the blog" links on post pages.
 export const blogPosts: BlogPost[] = [
   {
+    slug: "toner-vs-essence",
+    title: "Toner vs Essence: What's the Difference and Do You Need Both?",
+    category: "Ingredients & Products",
+    description:
+      "Toner and essence get confused constantly — here's what each one actually does, the order they go in, and whether your routine needs both or just one.",
+    tagline: "Two thin, watery steps with two genuinely different jobs.",
+    publishedAt: "2026-09-09",
+    intro:
+      "Toner and essence look almost identical on a shelf — both thin, watery liquids applied straight after cleansing — which is exactly why they get used interchangeably. They're not the same step, though, and understanding what each one is actually for makes it much easier to decide whether your routine needs one, the other, or both.",
+    sections: [
+      {
+        heading: "What a toner actually does",
+        body: "A toner's original job is cleanup: removing the last trace of cleanser, makeup, or hard-water residue, and resetting your skin's pH after cleansing. Modern toners often do more than that — exfoliating toners contain AHAs or BHAs to gently resurface skin, while calming toners lean on soothing ingredients for sensitive or reactive skin. Either way, a toner is foundational: it preps skin so everything applied after it works better.",
+      },
+      {
+        heading: "What an essence actually does",
+        body: "An essence is a lighter-weight, hydration-first step that came out of Korean skincare, designed to be layered after toner and before serum. Its job is to boost hydration and help skin absorb what comes next, often using fermented ingredients or humectants like hyaluronic acid. Where a toner preps, an essence primes — it's less about cleanup and more about softening skin so treatments sink in.",
+      },
+      {
+        heading: "Why they get confused",
+        body: "The line has blurred because plenty of modern \"hydrating toners\" are formulated almost identically to essences, and plenty of \"essences\" behave like lightweight serums. If a product is doing pH-balancing and residue removal, it's functioning as a toner. If it's doing hydration and absorption-boosting with barely any active treatment, it's functioning as an essence — regardless of what the label says.",
+      },
+      {
+        heading: "Do you need both?",
+        body: "Not always. Toner is the more foundational of the two, especially if you double cleanse, wear SPF or makeup daily, or have oily or acne-prone skin that benefits from an exfoliating toner. Essence is more of a nice-to-have layering step — most valuable for dry or dull skin that wants extra hydration before treatments, or anyone whose skin feels tight after cleansing. If you only have room for one, start with a toner suited to your skin type and add an essence later if your skin still wants more.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What order do toner and essence go in?",
+        a: "Cleanser, then toner, then essence, then serums and treatments, then moisturizer — thinnest to thickest texture, so each layer absorbs before the next goes on.",
+      },
+      {
+        q: "Can I use a toner and skip the essence?",
+        a: "Yes. Toner is the more foundational step; essence is an optional add-on for extra hydration, most useful for dry or dull skin.",
+      },
+      {
+        q: "Is an essence just a diluted serum?",
+        a: "Not quite. An essence is thinner and more about hydration and absorption than treating a specific concern, while a serum is more concentrated and targeted. There's overlap, but they're formulated for different jobs.",
+      },
+    ],
+    relatedProducts: [
+      { slug: "toners", label: "Toners" },
+      { slug: "essences", label: "Essences" },
+      { slug: "serums-treatments", label: "Serums & treatments" },
+    ],
+  },
+  {
     slug: "how-to-build-a-skincare-routine",
     title: "How to Build a Skincare Routine From Scratch",
     category: "Routine Basics",
