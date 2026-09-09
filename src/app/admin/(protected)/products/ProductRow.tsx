@@ -10,6 +10,7 @@ interface Product {
   slug: string;
   title: string;
   description: string;
+  youtube_url: string | null;
 }
 
 const initialState: FormState = {};
@@ -66,6 +67,16 @@ export default function ProductRow({ product }: { product: Product }) {
             className={styles.textarea}
             required
           />
+        </td>
+        <td>
+          <input
+            form={formId}
+            name="youtubeUrl"
+            type="url"
+            placeholder="https://youtube.com/watch?v=…"
+            defaultValue={product.youtube_url ?? ""}
+            className={styles.input}
+          />
           {state.error && <p className={styles.error}>{state.error}</p>}
         </td>
         <td>
@@ -93,6 +104,15 @@ export default function ProductRow({ product }: { product: Product }) {
       <td className={styles.muted}>{product.slug}</td>
       <td>{product.title}</td>
       <td className={styles.muted}>{product.description}</td>
+      <td className={styles.muted}>
+        {product.youtube_url ? (
+          <a href={product.youtube_url} target="_blank" rel="noopener noreferrer">
+            ▶ Video
+          </a>
+        ) : (
+          "—"
+        )}
+      </td>
       <td>
         <div className={styles.actions}>
           <button type="button" className={styles.actionBtn} onClick={() => setEditing(true)}>

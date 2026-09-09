@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabaseAdmin } from "./supabase-admin";
 import { createClient } from "./supabase-server";
+import { getYoutubeVideoId } from "./youtube";
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -97,14 +98,19 @@ export async function updateProduct(
   const slug = String(formData.get("slug") ?? "").trim();
   const title = String(formData.get("title") ?? "").trim();
   const description = String(formData.get("description") ?? "").trim();
+  const youtubeUrl = String(formData.get("youtubeUrl") ?? "").trim();
 
   if (!Number.isInteger(step) || step < 1 || !slug || !title || !description) {
     return { error: "Fill in all fields with a valid step number." };
   }
 
+  if (youtubeUrl && !getYoutubeVideoId(youtubeUrl)) {
+    return { error: "That doesn't look like a valid YouTube URL." };
+  }
+
   const { error } = await supabaseAdmin
     .from("skincare_products")
-    .update({ step, slug, title, description })
+    .update({ step, slug, title, description, youtube_url: youtubeUrl || null })
     .eq("id", id);
 
   if (error) {

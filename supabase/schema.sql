@@ -311,3 +311,8 @@ alter table public.profiles add column if not exists stripe_subscription_id text
 create unique index if not exists profiles_stripe_customer_id_idx
   on public.profiles (stripe_customer_id)
   where stripe_customer_id is not null;
+
+-- Optional YouTube video (a quick look at the product in use) shown on the
+-- product's detail page when set from /admin/products. Nullable — most
+-- products won't have one.
+alter table public.skincare_products add column if not exists youtube_url text;

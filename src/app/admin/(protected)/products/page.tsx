@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 async function getProducts() {
   const { data, error } = await supabaseAdmin
     .from("skincare_products")
-    .select("id, step, slug, title, description")
+    .select("id, step, slug, title, description, youtube_url")
     .order("step");
 
   if (error) {
@@ -45,6 +45,7 @@ export default async function AdminProductsPage() {
                 <th>Slug</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>YouTube URL</th>
                 <th>Actions</th>
               </tr>
             </thead>

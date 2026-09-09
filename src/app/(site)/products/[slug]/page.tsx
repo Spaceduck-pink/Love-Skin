@@ -12,6 +12,7 @@ import {
 } from "@/lib/product-content";
 import { concernContent, concernOrder, skinTypeContent, skinTypeOrder } from "@/lib/skin-profile-content";
 import { siteUrl } from "@/lib/site";
+import { getYoutubeEmbedUrl } from "@/lib/youtube";
 import styles from "@/styles/detail-page.module.css";
 
 interface ProductRow {
@@ -19,12 +20,13 @@ interface ProductRow {
   slug: string;
   title: string;
   description: string;
+  youtube_url: string | null;
 }
 
 async function getProduct(slug: string): Promise<ProductRow | null> {
   const { data, error } = await supabase
     .from("skincare_products")
-    .select("step, slug, title, description")
+    .select("step, slug, title, description, youtube_url")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -74,6 +76,7 @@ export default async function ProductDetailPage({
   const product = await getProduct(slug);
   if (!product) notFound();
 
+  const embedUrl = getYoutubeEmbedUrl(product.youtube_url);
   const extra = productContent[product.slug];
   const isSkinTypeDriven = skinTypeDrivenProducts.includes(product.slug);
   const isConcernDriven = concernDrivenProducts.includes(product.slug);
@@ -132,6 +135,23 @@ export default async function ProductDetailPage({
           />
         </div>
       </section>
+
+      {embedUrl && (
+        <FadeIn className={styles.section}>
+          <div className="container">
+            <h2 className={styles.sectionTitle}>See it in action</h2>
+            <div className={styles.videoWrap}>
+              <iframe
+                src={embedUrl}
+                title={`${product.title} — video`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </FadeIn>
+      )}
 
       {extra && (
         <>
