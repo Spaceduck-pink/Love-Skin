@@ -3,6 +3,10 @@ import { supabaseAdmin } from "@/lib/supabase-admin";
 import { siteUrl } from "@/lib/site";
 import { concernOrder, skinTypeOrder } from "@/lib/skin-profile-content";
 
+// Regenerate hourly so new products and public profiles show up without a
+// redeploy — Next.js otherwise treats this route as static.
+export const revalidate = 3600;
+
 const staticRoutes: Array<{
   path: string;
   changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -19,7 +23,9 @@ const staticRoutes: Array<{
 ];
 
 async function getProductUrls(): Promise<MetadataRoute.Sitemap> {
-  const { data, error } = await supabaseAdmin.from("skincare_products").select("slug");
+  const { data, error } = await supabaseAdmin
+    .from("skincare_products")
+    .select("slug, created_at");
 
   if (error) {
     console.error("Failed to load products for sitemap:", error.message);
@@ -28,7 +34,7 @@ async function getProductUrls(): Promise<MetadataRoute.Sitemap> {
 
   return data.map((product) => ({
     url: `${siteUrl}/products/${product.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(product.created_at as string),
     changeFrequency: "monthly",
     priority: 0.6,
   }));
