@@ -57,6 +57,9 @@ export default function Footer() {
           <Link href="/refund-policy" className={styles.legalLink}>
             Refund Policy
           </Link>
+          <Link href="/feedback" className={styles.legalLink}>
+            Feedback
+          </Link>
         </nav>
 
         <p className={styles.copyright}>

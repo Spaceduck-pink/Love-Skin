@@ -124,6 +124,19 @@ export async function updateProduct(
   return {};
 }
 
+// --- Feedback ---
+
+export async function deleteFeedback(id: string) {
+  await requireAdmin();
+
+  const { error } = await supabaseAdmin.from("feedback").delete().eq("id", id);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  revalidatePath("/admin/feedback");
+}
+
 // --- User profiles ---
 
 export async function updateUserProfile(

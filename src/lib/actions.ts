@@ -73,3 +73,43 @@ export async function subscribeToNewsletter(
 
   return { status: "success" };
 }
+
+export interface FeedbackState {
+  status: "idle" | "success" | "error";
+  message?: string;
+}
+
+export async function submitFeedback(
+  _prevState: FeedbackState,
+  formData: FormData,
+): Promise<FeedbackState> {
+  const name = String(formData.get("name") ?? "").trim();
+  const email = String(formData.get("email") ?? "").trim();
+  const message = String(formData.get("message") ?? "").trim();
+
+  if (!name || !email || !email.includes("@") || !message) {
+    return { status: "error", message: "Please fill in your name, email, and feedback." };
+  }
+
+  // Attach the signed-in user's id (if any) via the cookie-aware client, but
+  // insert with the anon client so this works the same for signed-out
+  // visitors — matches the subscribers table's anon-only insert policy.
+  const authedClient = await createClient();
+  const {
+    data: { user },
+  } = await authedClient.auth.getUser();
+
+  const { error } = await supabase.from("feedback").insert({
+    name,
+    email,
+    message,
+    user_id: user?.id ?? null,
+  });
+
+  if (error) {
+    console.error("Failed to save feedback:", error.message);
+    return { status: "error", message: "Something went wrong. Please try again." };
+  }
+
+  return { status: "success" };
+}

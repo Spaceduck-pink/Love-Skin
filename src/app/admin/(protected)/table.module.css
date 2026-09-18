@@ -119,3 +119,8 @@
 .muted {
   color: var(--color-text-muted);
 }
+
+.wrapCell {
+  white-space: pre-wrap;
+  min-width: 20rem;
+}
