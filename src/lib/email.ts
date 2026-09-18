@@ -7,8 +7,7 @@ const resend = resendApiKey ? new Resend(resendApiKey) : null;
 
 export async function sendWelcomeEmail(to: string, firstName: string | null) {
   if (!resend) {
-    console.warn("RESEND_API_KEY is not set — skipping welcome email.");
-    return;
+    throw new Error("RESEND_API_KEY is not set — cannot send welcome email.");
   }
 
   const greeting = firstName ? `Hi ${firstName},` : "Hi there,";

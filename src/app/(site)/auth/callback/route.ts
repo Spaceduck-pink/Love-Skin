@@ -45,11 +45,12 @@ async function sendWelcomeEmailOnce(
 
   if (!profile || profile.welcome_email_sent) return;
 
-  await supabase.from("profiles").update({ welcome_email_sent: true }).eq("id", user.id);
-
   try {
     await sendWelcomeEmail(user.email, profile.first_name);
   } catch (err) {
     console.error("Failed to send welcome email:", err);
+    return;
   }
+
+  await supabase.from("profiles").update({ welcome_email_sent: true }).eq("id", user.id);
 }
