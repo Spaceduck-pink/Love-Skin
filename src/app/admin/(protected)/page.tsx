@@ -22,6 +22,11 @@ const sections = [
     title: "Users",
     description: "View users and change roles.",
   },
+  {
+    href: "/admin/feedback",
+    title: "Feedback",
+    description: "Read and delete feedback submitted by visitors.",
+  },
 ];
 
 export default function AdminIndexPage() {
