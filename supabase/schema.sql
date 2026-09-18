@@ -316,3 +316,8 @@ create unique index if not exists profiles_stripe_customer_id_idx
 -- product's detail page when set from /admin/products. Nullable — most
 -- products won't have one.
 alter table public.skincare_products add column if not exists youtube_url text;
+
+-- Tracks whether the one-time welcome email (src/lib/email.ts, sent from
+-- the auth callback route) has already gone out for this profile, so a
+-- returning user signing in again doesn't get emailed a second time.
+alter table public.profiles add column if not exists welcome_email_sent boolean not null default false;
