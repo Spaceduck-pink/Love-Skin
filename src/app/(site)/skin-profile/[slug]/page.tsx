@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import ShareButtons from "@/components/ShareButtons";
+import { jsonLdScript } from "@/lib/json-ld";
 import { getConcerns, getSkinType, getSkinTypes } from "@/lib/skin-profile-data";
 import { productTitles, skinTypeDrivenProducts } from "@/lib/product-content";
 import { siteUrl } from "@/lib/site";
@@ -66,9 +67,9 @@ export default async function SkinTypePage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }} />
 
       <nav className={`container ${styles.breadcrumb}`} aria-label="Breadcrumb">
         <Link href="/skin-profile">Skin profile</Link>

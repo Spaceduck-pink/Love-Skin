@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import ShareButtons from "@/components/ShareButtons";
 import { blogPosts, getBlogPost } from "@/lib/blog-content";
+import { jsonLdScript } from "@/lib/json-ld";
 import { getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
@@ -94,13 +95,13 @@ export default async function BlogPostPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(breadcrumbJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(articleJsonLd) }}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(faqJsonLd) }} />
 
       <nav className={`container ${styles.breadcrumb}`} aria-label="Breadcrumb">
         <Link href="/blog">Blog</Link>
