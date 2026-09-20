@@ -13,16 +13,13 @@ export default function FadeIn({
   id?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 
   useEffect(() => {
     const node = ref.current;
-    if (!node) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true);
-      return;
-    }
+    if (!node || visible) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -36,7 +33,7 @@ export default function FadeIn({
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [visible]);
 
   return (
     <section
