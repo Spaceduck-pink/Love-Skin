@@ -8,12 +8,10 @@ import { MobileMenuContext } from "./MobileMenuContext";
 import styles from "./Header.module.css";
 
 const navLinks = [
-  { href: "/#how-it-works", label: "How it works" },
   { href: "/skin-profile", label: "Skin Profile" },
   { href: "/products", label: "Products" },
   { href: "/blog", label: "Blog" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/#about", label: "About" },
   { href: "/#newsletter", label: "Newsletter" },
 ];
 
