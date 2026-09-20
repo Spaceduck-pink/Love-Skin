@@ -4,24 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import ShareButtons from "@/components/ShareButtons";
-import {
-  concernContent,
-  concernImageAlt,
-  concernOrder,
-  skinTypeContent,
-  skinTypeOrder,
-} from "@/lib/skin-profile-content";
+import { getConcern, getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import { concernDrivenProducts, productTitles } from "@/lib/product-content";
-import type { Concern } from "@/lib/types";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
 
-export function generateStaticParams() {
-  return concernOrder.map((slug) => ({ slug }));
-}
-
-function getContent(slug: string) {
-  return concernOrder.includes(slug as Concern) ? concernContent[slug as Concern] : null;
+export async function generateStaticParams() {
+  const concerns = await getConcerns();
+  return concerns.map((row) => ({ slug: row.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const content = getContent(slug);
+  const content = await getConcern(slug);
   if (!content) return {};
 
   return {
@@ -45,7 +35,7 @@ export default async function ConcernPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const content = getContent(slug);
+  const [content, skinTypes] = await Promise.all([getConcern(slug), getSkinTypes()]);
   if (!content) notFound();
 
   const breadcrumbJsonLd = {
@@ -95,7 +85,7 @@ export default async function ConcernPage({
         <div className={`container ${styles.heroImageWrap}`}>
           <Image
             src={`/images/concerns/${content.slug}.jpg`}
-            alt={concernImageAlt[content.slug]}
+            alt={content.image_alt}
             fill
             sizes="(min-width: 700px) 1180px, 100vw"
             className={styles.heroImg}
@@ -123,7 +113,7 @@ export default async function ConcernPage({
         <div className="container">
           <h2 className={styles.sectionTitle}>What helps</h2>
           <div className={styles.treatmentGrid}>
-            {content.whatHelps.map((item) => (
+            {content.what_helps.map((item) => (
               <div key={item.title} className={styles.treatmentCard}>
                 <h3 className={styles.treatmentTitle}>{item.title}</h3>
                 <p>{item.description}</p>
@@ -184,9 +174,9 @@ export default async function ConcernPage({
         <div className="container">
           <h2 className={styles.sectionTitle}>Skin types</h2>
           <div className={styles.relatedGrid}>
-            {skinTypeOrder.map((typeSlug) => (
-              <Link key={typeSlug} href={`/skin-profile/${typeSlug}`} className={styles.relatedPill}>
-                {skinTypeContent[typeSlug].title}
+            {skinTypes.map((type) => (
+              <Link key={type.slug} href={`/skin-profile/${type.slug}`} className={styles.relatedPill}>
+                {type.title}
               </Link>
             ))}
           </div>

@@ -18,6 +18,11 @@ const sections = [
     description: "Create, edit, and delete skincare products.",
   },
   {
+    href: "/admin/skin-profile",
+    title: "Skin Profile",
+    description: "Edit skin type and concern content shown on the site.",
+  },
+  {
     href: "/admin/users",
     title: "Users",
     description: "View users and change roles.",

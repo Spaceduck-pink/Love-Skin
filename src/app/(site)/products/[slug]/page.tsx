@@ -11,7 +11,7 @@ import {
   productImageAlt,
   skinTypeDrivenProducts,
 } from "@/lib/product-content";
-import { concernContent, concernOrder, skinTypeContent, skinTypeOrder } from "@/lib/skin-profile-content";
+import { getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import { siteUrl } from "@/lib/site";
 import { getYoutubeEmbedUrl } from "@/lib/youtube";
 import styles from "@/styles/detail-page.module.css";
@@ -74,7 +74,11 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = await getProduct(slug);
+  const [product, skinTypes, concerns] = await Promise.all([
+    getProduct(slug),
+    getSkinTypes(),
+    getConcerns(),
+  ]);
   if (!product) notFound();
 
   const embedUrl = getYoutubeEmbedUrl(product.youtube_url);
@@ -183,13 +187,13 @@ export default async function ProductDetailPage({
               <div className="container">
                 <h2 className={styles.sectionTitle}>Find your formula by skin type</h2>
                 <div className={styles.relatedGrid}>
-                  {skinTypeOrder.map((typeSlug) => (
+                  {skinTypes.map((type) => (
                     <Link
-                      key={typeSlug}
-                      href={`/skin-profile/${typeSlug}`}
+                      key={type.slug}
+                      href={`/skin-profile/${type.slug}`}
                       className={styles.relatedPill}
                     >
-                      {skinTypeContent[typeSlug].title}
+                      {type.title}
                     </Link>
                   ))}
                 </div>
@@ -202,13 +206,13 @@ export default async function ProductDetailPage({
               <div className="container">
                 <h2 className={styles.sectionTitle}>Choose based on your main concern</h2>
                 <div className={styles.relatedGrid}>
-                  {concernOrder.map((concernSlug) => (
+                  {concerns.map((concern) => (
                     <Link
-                      key={concernSlug}
-                      href={`/skin-profile/concerns/${concernSlug}`}
+                      key={concern.slug}
+                      href={`/skin-profile/concerns/${concern.slug}`}
                       className={styles.relatedPill}
                     >
-                      {concernContent[concernSlug].title}
+                      {concern.title}
                     </Link>
                   ))}
                 </div>

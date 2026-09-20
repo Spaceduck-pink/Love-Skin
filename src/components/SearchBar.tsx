@@ -10,6 +10,7 @@ export default function SearchBar() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [productItems, setProductItems] = useState<SearchItem[]>([]);
+  const [skinProfileItems, setSkinProfileItems] = useState<SearchItem[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
@@ -30,6 +31,33 @@ export default function SearchBar() {
           })),
         );
       });
+
+    Promise.all([
+      supabase.from("skin_types").select("slug, title, tagline"),
+      supabase.from("skin_concerns").select("slug, title, tagline"),
+    ]).then(([skinTypes, concerns]) => {
+      if (cancelled) return;
+      const items: SearchItem[] = [];
+      if (skinTypes.data) {
+        items.push(
+          ...skinTypes.data.map((type) => ({
+            title: `${type.title} skin`,
+            description: type.tagline,
+            href: `/skin-profile/${type.slug}`,
+          })),
+        );
+      }
+      if (concerns.data) {
+        items.push(
+          ...concerns.data.map((concern) => ({
+            title: concern.title,
+            description: concern.tagline,
+            href: `/skin-profile/concerns/${concern.slug}`,
+          })),
+        );
+      }
+      setSkinProfileItems(items);
+    });
 
     return () => {
       cancelled = true;
@@ -60,7 +88,7 @@ export default function SearchBar() {
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    return [...searchIndex, ...productItems]
+    return [...searchIndex, ...productItems, ...skinProfileItems]
       .filter(
         (item) =>
           item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q),
@@ -72,7 +100,7 @@ export default function SearchBar() {
         return aTitleMatch ? -1 : 1;
       })
       .slice(0, 8);
-  }, [query, productItems]);
+  }, [query, productItems, skinProfileItems]);
 
   function close() {
     setOpen(false);

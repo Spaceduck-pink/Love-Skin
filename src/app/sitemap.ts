@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { siteUrl } from "@/lib/site";
-import { concernOrder, skinTypeOrder } from "@/lib/skin-profile-content";
+import { getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import { blogPosts } from "@/lib/blog-content";
 
 // Regenerate hourly so new products and public profiles show up without a
@@ -42,16 +42,18 @@ async function getProductUrls(): Promise<MetadataRoute.Sitemap> {
   }));
 }
 
-function getSkinProfileDetailUrls(): MetadataRoute.Sitemap {
+async function getSkinProfileDetailUrls(): Promise<MetadataRoute.Sitemap> {
+  const [skinTypes, concerns] = await Promise.all([getSkinTypes(), getConcerns()]);
+
   return [
-    ...skinTypeOrder.map((slug) => ({
-      url: `${siteUrl}/skin-profile/${slug}`,
+    ...skinTypes.map((row) => ({
+      url: `${siteUrl}/skin-profile/${row.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
-    ...concernOrder.map((slug) => ({
-      url: `${siteUrl}/skin-profile/concerns/${slug}`,
+    ...concerns.map((row) => ({
+      url: `${siteUrl}/skin-profile/concerns/${row.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.6,
@@ -88,7 +90,11 @@ function getBlogUrls(): MetadataRoute.Sitemap {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [profileUrls, productUrls] = await Promise.all([getProfileUrls(), getProductUrls()]);
+  const [profileUrls, productUrls, skinProfileUrls] = await Promise.all([
+    getProfileUrls(),
+    getProductUrls(),
+    getSkinProfileDetailUrls(),
+  ]);
 
   return [
     ...staticRoutes.map((route) => ({
@@ -97,7 +103,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })),
-    ...getSkinProfileDetailUrls(),
+    ...skinProfileUrls,
     ...getBlogUrls(),
     ...productUrls,
     ...profileUrls,

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import FadeIn from "@/components/FadeIn";
-import { concernContent, concernOrder, skinTypeContent, skinTypeOrder } from "@/lib/skin-profile-content";
+import { getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import styles from "./page.module.css";
 import detailStyles from "@/styles/detail-page.module.css";
 
@@ -12,21 +12,23 @@ export const metadata: Metadata = {
     "How LoveSkin maps your quiz answers into a skin type and concern profile that shapes your personalized AM/PM routine.",
 };
 
-const skinTypes = skinTypeOrder.map((slug) => ({
-  label: "Skin type",
-  title: skinTypeContent[slug].title,
-  body: skinTypeContent[slug].tagline,
-  href: `/skin-profile/${slug}`,
-}));
+export default async function SkinProfilePage() {
+  const [skinTypeRows, concernRows] = await Promise.all([getSkinTypes(), getConcerns()]);
 
-const concerns = concernOrder.map((slug) => ({
-  label: "Concern",
-  title: concernContent[slug].title,
-  body: concernContent[slug].tagline,
-  href: `/skin-profile/concerns/${slug}`,
-}));
+  const skinTypes = skinTypeRows.map((row) => ({
+    label: "Skin type",
+    title: row.title,
+    body: row.tagline,
+    href: `/skin-profile/${row.slug}`,
+  }));
 
-export default function SkinProfilePage() {
+  const concerns = concernRows.map((row) => ({
+    label: "Concern",
+    title: row.title,
+    body: row.tagline,
+    href: `/skin-profile/concerns/${row.slug}`,
+  }));
+
   return (
     <>
       <section className={styles.hero}>

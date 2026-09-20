@@ -4,24 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import ShareButtons from "@/components/ShareButtons";
-import {
-  concernContent,
-  concernOrder,
-  skinTypeContent,
-  skinTypeImageAlt,
-  skinTypeOrder,
-} from "@/lib/skin-profile-content";
+import { getConcerns, getSkinType, getSkinTypes } from "@/lib/skin-profile-data";
 import { productTitles, skinTypeDrivenProducts } from "@/lib/product-content";
-import type { SkinType } from "@/lib/types";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
 
-export function generateStaticParams() {
-  return skinTypeOrder.map((slug) => ({ slug }));
-}
-
-function getContent(slug: string) {
-  return skinTypeOrder.includes(slug as SkinType) ? skinTypeContent[slug as SkinType] : null;
+export async function generateStaticParams() {
+  const skinTypes = await getSkinTypes();
+  return skinTypes.map((row) => ({ slug: row.slug }));
 }
 
 export async function generateMetadata({
@@ -30,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const content = getContent(slug);
+  const content = await getSkinType(slug);
   if (!content) return {};
 
   return {
@@ -45,7 +35,7 @@ export default async function SkinTypePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const content = getContent(slug);
+  const [content, concerns] = await Promise.all([getSkinType(slug), getConcerns()]);
   if (!content) notFound();
 
   const breadcrumbJsonLd = {
@@ -96,7 +86,7 @@ export default async function SkinTypePage({
         <div className={`container ${styles.heroImageWrap}`}>
           <Image
             src={`/images/skin-types/${content.slug}.jpg`}
-            alt={skinTypeImageAlt[content.slug]}
+            alt={content.image_alt}
             fill
             sizes="(min-width: 700px) 1180px, 100vw"
             className={styles.heroImg}
@@ -138,7 +128,7 @@ export default async function SkinTypePage({
             <div>
               <span className={styles.colHeading}>Look for</span>
               <ul className={styles.list}>
-                {content.lookFor.map((item) => (
+                {content.look_for.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -197,13 +187,13 @@ export default async function SkinTypePage({
         <div className="container">
           <h2 className={styles.sectionTitle}>Skin concerns</h2>
           <div className={styles.relatedGrid}>
-            {concernOrder.map((concernSlug) => (
+            {concerns.map((concern) => (
               <Link
-                key={concernSlug}
-                href={`/skin-profile/concerns/${concernSlug}`}
+                key={concern.slug}
+                href={`/skin-profile/concerns/${concern.slug}`}
                 className={styles.relatedPill}
               >
-                {concernContent[concernSlug].title}
+                {concern.title}
               </Link>
             ))}
           </div>

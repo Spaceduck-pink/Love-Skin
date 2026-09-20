@@ -1,4 +1,4 @@
-import type { Faq } from "./skin-profile-content";
+import type { Faq } from "./skin-profile-data";
 
 export interface ProductContent {
   howToUse: string;

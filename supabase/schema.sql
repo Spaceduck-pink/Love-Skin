@@ -321,3 +321,58 @@ alter table public.skincare_products add column if not exists youtube_url text;
 -- the auth callback route) has already gone out for this profile, so a
 -- returning user signing in again doesn't get emailed a second time.
 alter table public.profiles add column if not exists welcome_email_sent boolean not null default false;
+
+-- Catalog of skin types and their routine guidance, editable from
+-- /admin/skin-profile. Mirrors the content that used to be hardcoded in
+-- src/lib/skin-profile-content.ts. slugs must stay in sync with the
+-- SkinType union in src/lib/types.ts, which the quiz/routine engine relies on.
+create table if not exists public.skin_types (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  sort_order int not null,
+  slug text not null unique,
+  title text not null,
+  tagline text not null,
+  summary text not null,
+  signs jsonb not null default '[]'::jsonb,
+  causes text not null,
+  look_for jsonb not null default '[]'::jsonb,
+  avoid jsonb not null default '[]'::jsonb,
+  mistakes jsonb not null default '[]'::jsonb,
+  faqs jsonb not null default '[]'::jsonb,
+  image_alt text not null default ''
+);
+
+alter table public.skin_types enable row level security;
+
+create policy "Allow public read access"
+  on public.skin_types
+  for select
+  to anon
+  using (true);
+
+-- Catalog of skin concerns and their treatment guidance, editable from
+-- /admin/skin-profile. slugs must stay in sync with the Concern union in
+-- src/lib/types.ts.
+create table if not exists public.skin_concerns (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  sort_order int not null,
+  slug text not null unique,
+  title text not null,
+  tagline text not null,
+  causes text not null,
+  what_helps jsonb not null default '[]'::jsonb,
+  mistakes jsonb not null default '[]'::jsonb,
+  tip text not null,
+  faqs jsonb not null default '[]'::jsonb,
+  image_alt text not null default ''
+);
+
+alter table public.skin_concerns enable row level security;
+
+create policy "Allow public read access"
+  on public.skin_concerns
+  for select
+  to anon
+  using (true);

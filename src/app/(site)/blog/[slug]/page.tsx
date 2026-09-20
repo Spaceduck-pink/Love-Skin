@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import FadeIn from "@/components/FadeIn";
 import ShareButtons from "@/components/ShareButtons";
 import { blogPosts, getBlogPost } from "@/lib/blog-content";
-import { concernContent, skinTypeContent } from "@/lib/skin-profile-content";
+import { getConcerns, getSkinTypes } from "@/lib/skin-profile-data";
 import { siteUrl } from "@/lib/site";
 import styles from "@/styles/detail-page.module.css";
 
@@ -46,6 +46,10 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) notFound();
+
+  const [skinTypes, concerns] = await Promise.all([getSkinTypes(), getConcerns()]);
+  const skinTypeTitleBySlug = new Map(skinTypes.map((type) => [type.slug, type.title]));
+  const concernTitleBySlug = new Map(concerns.map((concern) => [concern.slug, concern.title]));
 
   const publishedDate = new Date(post.publishedAt).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -177,7 +181,7 @@ export default async function BlogPostPage({
             <div className={styles.relatedGrid}>
               {post.relatedSkinTypes.map((typeSlug) => (
                 <Link key={typeSlug} href={`/skin-profile/${typeSlug}`} className={styles.relatedPill}>
-                  {skinTypeContent[typeSlug].title}
+                  {skinTypeTitleBySlug.get(typeSlug) ?? typeSlug}
                 </Link>
               ))}
             </div>
@@ -196,7 +200,7 @@ export default async function BlogPostPage({
                   href={`/skin-profile/concerns/${concernSlug}`}
                   className={styles.relatedPill}
                 >
-                  {concernContent[concernSlug].title}
+                  {concernTitleBySlug.get(concernSlug) ?? concernSlug}
                 </Link>
               ))}
             </div>
