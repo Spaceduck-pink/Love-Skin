@@ -93,9 +93,10 @@ create table if not exists public.profiles (
 alter table public.profiles enable row level security;
 
 -- Users can read and update only their own profile row. The update policy
--- technically allows a user to send a role value, but the only write path
--- (the settings page's server action) never sets role — promoting someone
--- to admin is a manual edit in the Supabase Table Editor.
+-- only checks row ownership, not which columns are being written, so on its
+-- own it would let a signed-in user set their own role/plan directly via the
+-- REST/JS API. The protect_profile_privileged_columns trigger further down
+-- this file locks those columns down regardless of this policy.
 create policy "Users can view their own profile"
   on public.profiles
   for select
@@ -376,3 +377,35 @@ create policy "Allow public read access"
   for select
   to anon
   using (true);
+
+-- Column-restrict updates to public.profiles. The "Users can update their
+-- own profile" policy above only checks row ownership (id = auth.uid()), so
+-- a signed-in user calling supabase.from('profiles').update({ role: 'admin' })
+-- (or { plan: 'pro' }) directly against the REST/JS API would otherwise
+-- succeed — bypassing every app-level admin gate (src/proxy.ts,
+-- src/app/admin/(protected)/layout.tsx, requireAdmin() in
+-- src/lib/admin-data-actions.ts) and the Stripe payment flow entirely, since
+-- none of those checks run for a direct database write. This trigger pins
+-- role, plan, and the Stripe link columns to their existing values for any
+-- request that isn't running as the service role (i.e. not supabaseAdmin),
+-- no matter what the RLS policy would otherwise allow.
+create or replace function public.protect_profile_privileged_columns()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  if auth.role() <> 'service_role' then
+    new.role := old.role;
+    new.plan := old.plan;
+    new.stripe_customer_id := old.stripe_customer_id;
+    new.stripe_subscription_id := old.stripe_subscription_id;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists protect_profile_privileged_columns on public.profiles;
+create trigger protect_profile_privileged_columns
+  before update on public.profiles
+  for each row execute function public.protect_profile_privileged_columns();
