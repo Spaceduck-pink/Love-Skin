@@ -1,4 +1,10 @@
 import { blogPosts } from "./blog-content";
+import {
+  concernContent,
+  concernOrder,
+  skinTypeContent,
+  skinTypeOrder,
+} from "./skin-profile-content";
 
 export interface SearchItem {
   title: string;
@@ -11,6 +17,24 @@ const blogItems: SearchItem[] = blogPosts.map((post) => ({
   description: post.description,
   href: `/blog/${post.slug}`,
 }));
+
+const skinTypeItems: SearchItem[] = skinTypeOrder.map((slug) => {
+  const content = skinTypeContent[slug];
+  return {
+    title: `${content.title} skin`,
+    description: content.tagline,
+    href: `/skin-profile/${slug}`,
+  };
+});
+
+const concernItems: SearchItem[] = concernOrder.map((slug) => {
+  const content = concernContent[slug];
+  return {
+    title: content.title,
+    description: content.tagline,
+    href: `/skin-profile/concerns/${slug}`,
+  };
+});
 
 export const searchIndex: SearchItem[] = [
   {
@@ -38,6 +62,8 @@ export const searchIndex: SearchItem[] = [
     description: "Skincare guides on routine building, ingredients, and what to expect.",
     href: "/blog",
   },
+  ...skinTypeItems,
+  ...concernItems,
   ...blogItems,
   {
     title: "How it works",

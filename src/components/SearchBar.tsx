@@ -26,7 +26,7 @@ export default function SearchBar() {
           data.map((product) => ({
             title: product.title,
             description: product.description,
-            href: `/products#${product.slug}`,
+            href: `/products/${product.slug}`,
           })),
         );
       });
@@ -65,6 +65,12 @@ export default function SearchBar() {
         (item) =>
           item.title.toLowerCase().includes(q) || item.description.toLowerCase().includes(q),
       )
+      .sort((a, b) => {
+        const aTitleMatch = a.title.toLowerCase().includes(q);
+        const bTitleMatch = b.title.toLowerCase().includes(q);
+        if (aTitleMatch === bTitleMatch) return 0;
+        return aTitleMatch ? -1 : 1;
+      })
       .slice(0, 8);
   }, [query, productItems]);
 
