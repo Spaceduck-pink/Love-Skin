@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import * as Sentry from "@sentry/nextjs";
 import styles from "@/styles/state-page.module.css";
 
 export default function SiteError({
@@ -13,6 +14,7 @@ export default function SiteError({
 }) {
   useEffect(() => {
     console.error(error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (
